@@ -45,11 +45,18 @@
                             <RowDefinition Height="150"/>
                         </Grid.RowDefinitions>
 
-                        <StackPanel Grid.Row="0" Margin="0 0 0 0" HorizontalAlignment="Right" Orientation="Horizontal" Width="40" >
-                            <TextBlock Text="Регистрация" Margin="-588 10 0 0" Foreground="White" Width="218"  FontSize="36" TextDecorations="Underline" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
+                        <StackPanel Grid.Row="0" Margin="0 0 0 0" HorizontalAlignment="Left" Orientation="Horizontal" Width="450" >
+                            <TextBlock Text="Регистрация" Margin="0 10 0 0" Foreground="White" Width="218"  FontSize="36" TextDecorations="Underline" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
+                            <Button x:Name="ButtonCollapseWindow"
+                            Width="40" Height="Auto" Background="Black" Click="ButtCollapse_Click"
+                            Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FFF0F0F0" Margin="110,10,10,10">
+                                <materialDesign:PackIcon HorizontalAlignment="Center" Kind="minus" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" >
+
+                                </materialDesign:PackIcon>
+                            </Button>
                             <Button x:Name="ButtonCloseWindow"
                             Width="40" Height="Auto" Background="Black" Click="ButtCloseWind_Click"
-                            Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FFF0F0F0" Margin="0,0,0,10">
+                            Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FFF0F0F0" Margin="0,10,0,10">
                                 <materialDesign:PackIcon HorizontalAlignment="Center" Kind="close" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" >
                                     <materialDesign:PackIcon.RenderTransform>
                                         <TransformGroup>

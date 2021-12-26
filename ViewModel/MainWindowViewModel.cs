@@ -22,7 +22,7 @@ namespace PizzaDelivery.ViewModel
         {
             _crud = dbCrud;
             CatalogVM = new CatalogViewModel(dbCrud, this);
-            TypePage = new HomeViewModel(dbCrud);
+            TypePage = new HomeViewModel(dbCrud, wentInUser, wentInWorker, wentInAdmin);
            // WentIn = true;
             // CatalogVM = new CatalogViewModel(dbCrud, categoryService, productCatalogService, dialogService);
             // CartVM = new CartViewModel(dbCrud, categoryService, productCatalogService, dialogService, orderService);
@@ -32,6 +32,11 @@ namespace PizzaDelivery.ViewModel
         public void ClickPizza(PizzaModel pm)
         {
             TypePage = new OpenButPizzaViewModel(_crud, this, pm);
+        }
+
+        public void ClickCatalog()
+        {
+            TypePage = new CatalogViewModel(_crud, this);
         }
 
         private bool wentIn;
@@ -115,7 +120,7 @@ namespace PizzaDelivery.ViewModel
                 return openMainWindow ??
                     (openMainWindow = new RelayCommand(obj =>
                     {
-                        TypePage = new HomeViewModel(_crud);
+                        TypePage = new HomeViewModel(_crud, WentInUser, WentInWorker, wentInAdmin);
                     }
                 ));
             }
@@ -147,6 +152,7 @@ namespace PizzaDelivery.ViewModel
                             {
                                 WentInAdmin = true;
                             }
+                            TypePage = new HomeViewModel(_crud, WentInUser, WentInWorker, wentInAdmin);
                             // ReminderLikeEventUser();
                         } 
 
@@ -169,7 +175,7 @@ namespace PizzaDelivery.ViewModel
                         WentInAdmin = false;
                         Userlog = null;
                         if (TypePage.GetWindowType() != TypeWindow.HomeUserControl)
-                            TypePage = new HomeViewModel(_crud);
+                            TypePage = new HomeViewModel(_crud, WentInUser, wentInWorker, WentInAdmin);
                     }
                 ));
             }

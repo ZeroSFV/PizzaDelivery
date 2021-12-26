@@ -20,6 +20,10 @@ namespace BLL.Interfaces
 
         List<BasketModel> GetAllBasketsByUserId(int UserId);
 
+        void DeleteBasket(int id);
 
+        void UpdateBasket(BasketModel basket);
+
+        void CreateBasket(int logUser, PizzaModel OpenPizza);
     }
 }

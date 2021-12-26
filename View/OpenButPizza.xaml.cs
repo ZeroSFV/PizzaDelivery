@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace PizzaDelivery.View
 {
@@ -23,6 +24,15 @@ namespace PizzaDelivery.View
         public OpenButPizza()
         {
             InitializeComponent();
+        }
+
+        private void ButtonAddBasket_Click(object sender, RoutedEventArgs e)
+        {
+            var notyfy = new ToastContentBuilder();
+            notyfy.AddText("Пицца добавлена в корзину. \n");
+            //notyfy.AddAppLogoOverride(new Uri
+            //    (@"C:\Users\Frortate\Desktop\КУРСОВАЯ\Курсовая WPF SE\SE Селезнёв Д.А. 3-41xx  (Курсовое приложение)\SE Селезнёв Д.А. 3-41xx  (Курсовое приложение)\Image\notpage.png"));
+            notyfy.Show();
         }
     }
 }

@@ -23,6 +23,10 @@
                     <ColumnDefinition Width="890"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
+
+                    <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50 50 0 0" Background="#FF160025" Command="{Binding EndMakeOrder}">
+                        <materialDesign:PackIcon Kind="ArrowBack" Width="24" Height="24" Foreground="White" HorizontalAlignment="Center"/>
+                    </Button>
                     <Image VerticalAlignment="Top" Margin="0 100 0 0" Source="{Binding OpenPizza.Pizza_Photo}" Width="400" Height="400">
                         <Image.Effect>
                             <DropShadowEffect/>
@@ -30,7 +34,7 @@
 
                     </Image>
                 </Grid>
-
+                    
                 <Grid Grid.Column="1">
                     <ScrollViewer>
                         <Grid>
@@ -74,7 +78,8 @@
 
 
                             </StackPanel>
-
+                            <Button x:Name="ButtonAddBasket" Grid.Row="3" Click="ButtonAddBasket_Click" HorizontalAlignment="Right"  Command="{Binding AddPizzaToBasket}" Background="Red" Foreground="White" FontSize="45" Content="В корзину"  Margin="0,183,46,30" Height="Auto" Width="298">
+                            </Button>
 
                         </Grid>
 

@@ -69,9 +69,41 @@ namespace BLL
             return dataBase.Baskets.GetList().Select(i => new BasketModel(i)).Where(i => i.Basket_User == UserId).ToList();
         }
 
+        public void DeleteBasket(int id)
+        {
+            Basket basket = dataBase.Baskets.GetItem(id);
+            if (basket != null)
+            {
+                dataBase.Baskets.Delete(basket.Basket_Id);
+                Save();
+            }
+        }
         public List<SizeModel> GetAllSizes()
         {
             return dataBase.Sizes.GetList().Select(i => new SizeModel(i)).ToList();
+        }
+
+        public void UpdateBasket(BasketModel basket)
+        {
+            Basket bs = dataBase.Baskets.GetItem(basket.Basket_Id);
+            bs.Basket_Amount = basket.Basket_Amount;
+            bs.Basket_Price = basket.Pizza.Pizza_Price * basket.Basket_Amount;
+            basket.ViewPrice = $"{basket.Basket_Price:0.#} руб.";
+            Save();
+        }
+
+        public void CreateBasket(int logUser, PizzaModel OpenPizza)
+        {
+            User us = dataBase.Users.GetItem(logUser);
+            Pizza pz = dataBase.Pizzas.GetItem(OpenPizza.Pizza_id);
+            Basket Basks = dataBase.Baskets.GetList().Where(i => i.Basket_User == logUser).Where(i => i.Basket_Pizza == OpenPizza.Pizza_id).FirstOrDefault();
+            if (Basks != null)
+            {
+                Basks.Basket_Amount++;
+                Basks.Basket_Price += pz.Pizza_Price;
+            }
+            else { dataBase.Baskets.Create(new Basket{ Basket_Amount = 1, Basket_Price = pz.Pizza_Price, Basket_Pizza = pz.Pizza_id, Basket_User = us.User_Id, Pizza = pz, User = us}); }
+            Save();
         }
 
         public UserModel User(int id)

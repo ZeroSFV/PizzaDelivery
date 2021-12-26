@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:PizzaDelivery.View"
         mc:Ignorable="d"
            WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True"
+        ResizeMode="CanResize" WindowStyle="None" AllowsTransparency="True"
         Height="700" Width="600" Background="Transparent" Foreground="#00000000">
 
          <Window.Triggers>
@@ -47,8 +47,19 @@
                             <RowDefinition Height="150"/>
                         </Grid.RowDefinitions>
 
-                        <StackPanel Grid.Row="0" Margin="0 0 0 0" HorizontalAlignment="Right" Orientation="Horizontal" Width="40" >
-                            <TextBlock Text="Вход" Margin="-700 0 0 0" Foreground="White" Width="84"  FontSize="36" TextDecorations="Underline"/>
+                        <StackPanel Grid.Row="0" Margin="0 0 0 0" HorizontalAlignment="Left" Orientation="Horizontal" Width="450" >
+                            <TextBlock Text="Вход" Margin="0 0 0 0" Foreground="White" Width="100"  FontSize="36" TextDecorations="Underline"/>
+
+                            <Button x:Name="ButtonCollapseWindow"
+                            Width="40" Height="Auto" Background="Black" Click="ButtCollapse_Click"
+                            Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FFF0F0F0" Margin="250,0,10,10">
+                                <materialDesign:PackIcon HorizontalAlignment="Center" Kind="minus" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" >
+                                    
+                                </materialDesign:PackIcon>
+                            </Button>
+
+                            
+
                             <Button x:Name="ButtonCloseWindow"
                             Width="40" Height="Auto" Background="Black" Click="ButtCloseWind_Click"
                             Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FFF0F0F0" Margin="0,0,0,10">
@@ -63,6 +74,7 @@
                                     </materialDesign:PackIcon.RenderTransform>
                                 </materialDesign:PackIcon>
                             </Button>
+                           
                         </StackPanel>
 
                         <StackPanel Grid.Row="1">

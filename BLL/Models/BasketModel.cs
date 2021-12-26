@@ -21,6 +21,8 @@ namespace BLL.Models
 
         public PizzaModel Pizza { get; set; }
 
+        public string ViewPrice { get; set; }
+
         public BasketModel() { }
         
         public BasketModel(Basket b)
@@ -31,6 +33,7 @@ namespace BLL.Models
             Basket_User = b.Basket_User;
             Basket_Pizza = b.Basket_Pizza;
             Pizza = new PizzaModel(b.Pizza);
+            ViewPrice = $"{b.Basket_Price:0.#} руб.";
         }
     }
 }

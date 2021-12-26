@@ -9,6 +9,7 @@ using BLL.Interfaces;
 using BLL.Models;
 using PizzaDelivery.Interface;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace PizzaDelivery.ViewModel
 {
@@ -44,9 +45,7 @@ namespace PizzaDelivery.ViewModel
             UserId = userId;
             Baskets = new ObservableCollection<BasketModel>();
             GetBaskets(UserId);
-            if (Baskets.Count > 0)
-                NotEmptyBasket = true;
-            else NotEmptyBasket = false;
+            
 
 
         }
@@ -54,12 +53,29 @@ namespace PizzaDelivery.ViewModel
         public void GetBaskets(int UsId)
         {
             Baskets = new ObservableCollection<BasketModel>(crud.GetAllBasketsByUserId(UsId));
-
+            if (Baskets.Count > 0)
+                NotEmptyBasket = true;
+            else NotEmptyBasket = false;
             //Pizzas = new ObservableCollection<PizzaModel>(_crud.GetAllPizzas());
 
 
 
 
+        }
+
+        public ICommand EndMakeOrder
+        {
+            get
+            {
+                if (_endMakeOrder == null)
+                    _endMakeOrder = new RelayCommand(args => CloseMakeOrder(args));
+                return _endMakeOrder;
+            }
+        }
+        private ICommand _endMakeOrder;
+        private void CloseMakeOrder(object args)
+        {
+            ipizz.ClickCatalog();
         }
 
         private bool notEmptyBasket;
@@ -80,27 +96,79 @@ namespace PizzaDelivery.ViewModel
             }
         }
 
-        private RelayCommand _deleteBasket;
-        public RelayCommand DeleteBasket
+
+        private ICommand _deleteCommand;
+        public ICommand DeleteCommand
         {
             get
             {
-
-                return _deleteBasket ??
-                    (_deleteBasket = new RelayCommand(obj =>
-                    {
-                        //   string t = obj.ToString();
-                        BasketModel bs = Baskets[0];
-                        // PizzaModel pz = Pizzas.ToList().Find(p => p.Pizza_Name == t);
-                       // if (pz != null) ipizz.ClickPizza(pz);
-
-                    }
-                ));
-
-
-               
+                if (_deleteCommand == null)
+                    _deleteCommand = new RelayCommand(args => BinClicked(args));
+                return _deleteCommand;
             }
         }
+
+        private void BinClicked(object args)
+        {
+            if ((int)args != -1)
+            {
+                crud.DeleteBasket(Baskets[(int)args].Basket_Id);
+                GetBaskets(UserId);
+            }
+        }
+
+        private ICommand _plusAmountCommand;
+        public ICommand PlusAmountCommand
+        {
+            get
+            {
+                if (_plusAmountCommand == null)
+                    _plusAmountCommand = new RelayCommand(args => PlusClicked(args));
+                return _plusAmountCommand;
+            }
+        }
+        private void PlusClicked(object args)
+        {
+            if ((int)args != -1)
+            {
+                Baskets[(int)args].Basket_Amount++;
+                crud.UpdateBasket(Baskets[(int)args]);
+                GetBaskets(UserId);
+            }
+        }
+
+
+        private ICommand _minusAmountCommand;
+        public ICommand MinusAmountCommand
+        {
+            get
+            {
+                if (_minusAmountCommand == null)
+                    _minusAmountCommand = new RelayCommand(args => MinusClicked(args));
+                return _minusAmountCommand;
+            }
+        }
+        private void MinusClicked(object args)
+        {
+            if ((int)args != -1)
+            {
+                Baskets[(int)args].Basket_Amount--;
+                if (Baskets[(int)args].Basket_Amount == 0)
+                    crud.DeleteBasket(Baskets[(int)args].Basket_Id);
+                else crud.UpdateBasket(Baskets[(int)args]);
+                GetBaskets(UserId);
+                
+            }
+        }
+
+        public string Adress { get; set; }
+        public string Flat { get; set; }
+
+        public string Entrance { get; set; }
+
+        public string Floor { get; set; }
+
+        
 
         TypeWindow IWindowPage.GetWindowType()
         {

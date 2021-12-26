@@ -11,6 +11,7 @@ namespace PizzaDelivery.Interface
     {
         void ClickPizza(PizzaModel pm);
 
+        void ClickCatalog();
         int GetUser();
     }
 }

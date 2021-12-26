@@ -35,6 +35,13 @@ namespace PizzaDelivery.View
             Close();
         }
 
+        private void ButtCollapse_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+       
+
         public string GetPassword()
         {
 

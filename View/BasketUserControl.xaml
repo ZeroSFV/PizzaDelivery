@@ -23,19 +23,19 @@
                         <RowDefinition Height="50*"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    
+
                     <TextBlock Text="Ваша корзина" FontWeight="DemiBold" Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="Black" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    
-                   
+
+
                 </Grid>
 
-                
+
             </Grid>
 
         </Grid>
 
         <Grid Background="Transparent">
-           
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="135*"></ColumnDefinition>
                 <ColumnDefinition Width="623*"></ColumnDefinition>
@@ -52,7 +52,7 @@
                     <RowDefinition Height="109*"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Button VerticalAlignment="Center" HorizontalAlignment="Center" Background="#FF160025" >
+                <Button VerticalAlignment="Center" HorizontalAlignment="Center" Background="#FF160025" Command="{Binding EndMakeOrder}">
                     <materialDesign:PackIcon Kind="ArrowBack" Width="24" Height="24" Foreground="White" HorizontalAlignment="Center"/>
                 </Button>
             </Grid>
@@ -69,13 +69,15 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="24*"></RowDefinition>
+                        <RowDefinition Height="17*"></RowDefinition>
+                        <RowDefinition Height="17*"></RowDefinition>
                         <RowDefinition Height="17*"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    
+
 
                     <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Visibility="Hidden">
                         <Grid.RowDefinitions>
@@ -89,7 +91,7 @@
                             <ColumnDefinition Width="140*"></ColumnDefinition>
                             <ColumnDefinition Width="129*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        
+
                     </Grid>
 
                     <Grid Grid.Column="0" Grid.Row="1">
@@ -99,10 +101,35 @@
                             <RowDefinition Height="48*"></RowDefinition>
                         </Grid.RowDefinitions>
 
-                       
+
                     </Grid>
-                    
-                    <Button  Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,30,30" Content="Заказать" Foreground="Black" BorderBrush="#AAEA00" Background="#FFB9FF00"/>
+                    <Grid Grid.Row="0" Grid.ColumnSpan="3" Visibility="{Binding NotEmptyBasket, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel>
+                            <TextBlock Text="Улица:" FontSize="40" Margin="30 0 10 0"  Foreground="Black" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
+                            <TextBox Text="{Binding Adress, Mode=OneWayToSource}" FontSize="35" Foreground="Black" BorderBrush="Black"  Margin="10,0,10,0" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="1" Grid.Column="0" Visibility="{Binding NotEmptyBasket, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel>
+                            <TextBlock Text="Квартира:" FontSize="40" Margin="30 0 10 0"  Foreground="Black" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
+                            <TextBox Text="{Binding Flat, Mode=OneWayToSource}" FontSize="35" Foreground="Black" BorderBrush="Black"  Margin="10,0,10,0" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="1" Visibility="{Binding NotEmptyBasket, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel>
+                            <TextBlock Text="Подъезд:" FontSize="40" Margin="30 0 10 0"  Foreground="Black" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
+                            <TextBox Text="{Binding Entrance, Mode=OneWayToSource}" FontSize="35" Foreground="Black" BorderBrush="Black"  Margin="10,0,10,0" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="2" Visibility="{Binding NotEmptyBasket, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel>
+                            <TextBlock Text="Этаж:" FontSize="40" Margin="30 0 10 0"  Foreground="Black" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
+                            <TextBox Text="{Binding Floor, Mode=OneWayToSource}" FontSize="35" Foreground="Black" BorderBrush="Black"  Margin="10,0,10,0" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Button  Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,34,28" Content="Перейти на сайт оплаты" Foreground="Black" BorderBrush="#AAEA00" Background="#FFB9FF00" Visibility="{Binding NotEmptyBasket, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
                 </Grid>
                 <TextBlock Text="Ваша корзина" FontWeight="DemiBold" Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="Black" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Height="32"/>
@@ -111,10 +138,10 @@
 
 
                 <Grid Grid.Row="1" Background="#FFF3F3F3" Margin="0,0,0.2,0">
-                    <ListView Name="orderList" Foreground="Black"  Background="White"  ItemsSource="{Binding Baskets}" Visibility="{Binding NotEmptyBasket, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <ListView Name="listView" Foreground="Black"  Background="White"  ItemsSource="{Binding Baskets}" Visibility="{Binding NotEmptyBasket, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" MaxWidth="{Binding ElementName=orderList, Path=ActualWidth}"/>
+                                <WrapPanel Orientation="Horizontal" MaxWidth="{Binding ElementName=listView, Path=ActualWidth}"/>
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                         <ListView.ItemTemplate>
@@ -129,29 +156,37 @@
 
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                                            <TextBlock Grid.Column="0" FontSize="20" Text="{Binding Path=Basket_Amount}" HorizontalAlignment="Center" Foreground="Black" Background="White" Margin="-300 -40 0 10"  />
+                                            <TextBlock Grid.Column="0" FontSize="20" Text="{Binding Path=Basket_Amount}" HorizontalAlignment="Center" Foreground="Black" Background="White" Margin="-500 -40 0 10"  />
 
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                                            <TextBlock Grid.Column="0" FontSize="20" Text="{Binding Path=Basket_Price}" HorizontalAlignment="Center" Foreground="Black" Background="White" Margin="-100 -40 0 10"  />
+                                            <TextBlock Grid.Column="0" FontSize="20" Text="{Binding Path=ViewPrice}" HorizontalAlignment="Center" Foreground="Black" Background="White" Margin="-260 -40 0 10"  />
 
                                         </StackPanel>
 
-                                        <Button Command="{Binding Path=DeleteBasket, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding ElementName=listView, Path=SelectedIndex}"  HorizontalAlignment="Left" VerticalAlignment="Bottom" BorderBrush="IndianRed" Background="IndianRed">
+                                        <Button Command="{Binding Path = DataContext.DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding ElementName=listView, Path=SelectedIndex}"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0 " BorderBrush="IndianRed" Background="IndianRed">
                                             <materialDesign:PackIcon Kind="Delete" Width="24" Height="24" Foreground="White" />
                                         </Button>
 
+                                        <Button Command="{Binding Path=DataContext.MinusAmountCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding ElementName=listView, Path=SelectedIndex}" Margin="0 0 265 0 " Background="#FF160025" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" ToolTip="MaterialDesignFloatingActionMiniLightButton" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                            <materialDesign:PackIcon Kind="Minus" Height="20" Width="20" Foreground="White"/>
+                                        </Button>
+
+                                        <Button Command="{Binding Path=DataContext.PlusAmountCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding ElementName=listView, Path=SelectedIndex}" Margin="0 0 195 0 " Background="#FF160025" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"  ToolTip="MaterialDesignFloatingActionMiniLightButton" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                            <materialDesign:PackIcon Kind="Plus" Height="20" Width="20" Foreground="White"/>
+                                        </Button>
 
                                     </Grid>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <Image Height="300" Width="700" Source="/Assets/EmptyBasket.png" Visibility="{Binding NotEmptyBasket, Converter={StaticResource InverseBoolToVisConverter}}"/>
-                 </Grid>
+                    <Image Height="300" Width="600" Source="/Assets/EmptyBasket.png" Visibility="{Binding NotEmptyBasket, Converter={StaticResource InverseBoolToVisConverter}}" Margin="254,10,245,91"/>
+                    <Button  Command="{Binding EndMakeOrder}"  VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,-15,28" Content="Перейти в каталог" Foreground="Black" BorderBrush="#AAEA00" Background="#FFB9FF00" Visibility="{Binding NotEmptyBasket, Converter={StaticResource InverseBoolToVisConverter}}"/>
+                </Grid>
                 <Rectangle Grid.Row="1" HorizontalAlignment="Stretch" Fill="Transparent" Height="2" VerticalAlignment="Top" Margin="0,0,0.2,0"/>
                 <Rectangle Grid.Row="1" HorizontalAlignment="Stretch" Fill="Transparent" Height="2" VerticalAlignment="Bottom" Margin="0,0,0.2,0"/>
-                
+
             </Grid>
         </Grid>
     </Grid>

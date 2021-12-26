@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using BLL.Interfaces;
 using BLL.Models;
 using PizzaDelivery.Interface;
+using System.Windows.Input;
 
 namespace PizzaDelivery.ViewModel
 {
@@ -45,6 +46,37 @@ namespace PizzaDelivery.ViewModel
             }
         }
 
+        public ICommand AddPizzaToBasket
+        {
+            get
+            {
+                if (_addPizzaToBasket == null)
+                    _addPizzaToBasket = new RelayCommand(args => AddBasket(args));
+                return _addPizzaToBasket;
+            }
+        }
+        private ICommand _addPizzaToBasket;
+        private void AddBasket(object args)
+        {
+            crud.CreateBasket(logUser, OpenPizza);
+        }
+
+       
+
+        public ICommand EndMakeOrder
+        {
+            get
+            {
+                if (_endMakeOrder == null)
+                    _endMakeOrder = new RelayCommand(args => CloseMakeOrder(args));
+                return _endMakeOrder;
+            }
+        }
+        private ICommand _endMakeOrder;
+        private void CloseMakeOrder(object args)
+        {
+            ipizz.ClickCatalog();
+        }
         public string Price
         {
             get

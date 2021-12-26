@@ -25,8 +25,21 @@
 
 
                 <Grid Grid.Row="0" Grid.Column="0" >
-                    <Label Content="&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Добро пожаловать в приложение по доставке пиццы.&#xD;&#xA; Для работы с приложением нажмите на кнопку &quot;Войти&quot; и войдите в систему, если у вы уже когда-либо регистрировались или были заригестрированы. &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;      В ином случае проведите регистрацию, а затем войдите в систему"  Foreground="Red" HorizontalAlignment="Left" Margin="270,360,0,0" VerticalAlignment="Top" RenderTransformOrigin="-6.411,-1.331" FontSize="16" FontWeight="Bold" />
+                    <Label Content="&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Добро пожаловать в приложение по доставке пиццы.&#xD;&#xA; Для работы с приложением нажмите на кнопку &quot;Войти&quot; и войдите в систему, если у вы уже когда-либо регистрировались или были заригестрированы. &#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;      В ином случае проведите регистрацию, а затем войдите в систему"  Foreground="Red" HorizontalAlignment="Left" Margin="270,360,0,0" VerticalAlignment="Top" RenderTransformOrigin="-6.411,-1.331" FontSize="16" FontWeight="Bold" Visibility="{Binding WentIn, Converter={StaticResource InverseBoolToVisConverter}}"/>
                 </Grid>
+
+                <Grid Grid.Row="0" Grid.Column="0" >
+                    <Label Content="&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Добро пожаловать в наше приложение по доставке пиццы.&#xD;&#xA;                                                                                                    Вы зашли в наше приложение как &quot;клиент&quot;"  Foreground="Red" HorizontalAlignment="Left" Margin="250,361,0,0" VerticalAlignment="Top" RenderTransformOrigin="-6.411,-1.331" FontSize="16" FontWeight="Bold" Visibility="{Binding WentInClient, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                </Grid>
+
+                <Grid Grid.Row="0" Grid.Column="0" >
+                    <Label Content="&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Добро пожаловать в наше приложение по доставке пиццы.&#xD;&#xA;                                                                                            Вы зашли в наше приложение как &quot;Работник ресторана&quot;"  Foreground="Red" HorizontalAlignment="Left" Margin="250,361,0,0" VerticalAlignment="Top" RenderTransformOrigin="-6.411,-1.331" FontSize="16" FontWeight="Bold" Visibility="{Binding  WentInWorker, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                </Grid>
+
+                <Grid Grid.Row="0" Grid.Column="0" >
+                    <Label Content="&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Добро пожаловать в наше приложение по доставке пиццы.&#xD;&#xA;                                                                                            Вы зашли в наше приложение как &quot;Администратор&quot;"  Foreground="Red" HorizontalAlignment="Left" Margin="250,361,0,0" VerticalAlignment="Top" RenderTransformOrigin="-6.411,-1.331" FontSize="16" FontWeight="Bold" Visibility="{Binding WentInAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                </Grid>
+
             </Grid>
         </Border>
     </Grid>
