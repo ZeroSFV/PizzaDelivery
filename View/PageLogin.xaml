@@ -1,0 +1,95 @@
+﻿<Window x:Class="PizzaDelivery.View.PageLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:PizzaDelivery.View"
+        mc:Ignorable="d"
+           WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True"
+        Height="700" Width="600" Background="Transparent" Foreground="#00000000">
+
+         <Window.Triggers>
+
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="RegOp">
+        </EventTrigger>
+
+         </Window.Triggers>
+
+
+
+    <Grid Margin="0,0,10,0">
+        <Border Height="740" CornerRadius="25" Margin="12,9,10,14">
+
+
+            <Border.Effect>
+                <DropShadowEffect Direction="280" BlurRadius="30"/>
+            </Border.Effect>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="1" CornerRadius="10" HorizontalAlignment="Center" Height="600" Width="500" Background="#FF293133" Margin="24,34,24,106">
+
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="20" ShadowDepth="15" Opacity="0.1" Direction="280"/>
+                    </Border.Effect>
+
+                    <Grid Width="450" Height="550">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition Height="150"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Margin="0 0 0 0" HorizontalAlignment="Right" Orientation="Horizontal" Width="40" >
+                            <TextBlock Text="Вход" Margin="-700 0 0 0" Foreground="White" Width="84"  FontSize="36" TextDecorations="Underline"/>
+                            <Button x:Name="ButtonCloseWindow"
+                            Width="40" Height="Auto" Background="Black" Click="ButtCloseWind_Click"
+                            Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FFF0F0F0" Margin="0,0,0,10">
+                                <materialDesign:PackIcon HorizontalAlignment="Center" Kind="close" Height="30" Width="30" RenderTransformOrigin="0.5,0.5" >
+                                    <materialDesign:PackIcon.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform Angle="90"/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </materialDesign:PackIcon.RenderTransform>
+                                </materialDesign:PackIcon>
+                            </Button>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1">
+                            <TextBlock Text="Логин:" FontSize="40" Margin="40 30 10 10"  Foreground="White"/>
+                            <TextBox Text="{Binding Logined, Mode=OneWayToSource}" FontSize="35" Foreground="White" BorderBrush="White" Margin="10,30,10,10"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2">
+                            <TextBlock Text="Пароль:" FontSize="40" Margin="40 30 10 10"  Foreground="White"/>
+                            <PasswordBox x:Name="Password" FontSize="35" Foreground="White" BorderBrush="White"  Margin="10,30,10,10"/>
+                        </StackPanel>
+
+                        <Button x:Name="GoIn" Grid.Row="3" Style="{StaticResource MaterialDesignFlatButton}"
+                        HorizontalContentAlignment="Center" Background="White"  Margin="0 -30 0 0"
+                        BorderBrush="Transparent" Command="{Binding LoginTrue}"
+                        Foreground="#000" Height="70" Width="300" Content="Войти" 
+                        FontSize="30" FontWeight="Normal" >
+                        </Button>
+
+                        <Button x:Name="RegOp" Grid.Row="3" Style="{StaticResource MaterialDesignFlatButton}"
+                         Background="White"  Margin="299 110 0 0"
+                        BorderBrush="Transparent" Command="{Binding RegistrationWindow}"
+                        Foreground="#000" Height="35" Width="150" Content="Регистрация" 
+                        FontSize="20" FontWeight="Normal" />
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

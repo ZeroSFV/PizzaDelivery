@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="PizzaDelivery.View.OpenButPizza"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:PizzaDelivery.View"
+      mc:Ignorable="d" 
+       Height="820" Width="1760">
+     
+      
+
+    <Grid>
+        <Border Width="1760" Height="820" CornerRadius="25" Margin="5 -5 0 0" Background="Transparent">
+            
+
+            <Border.Effect>
+                <DropShadowEffect Direction="280" BlurRadius="30"/>
+            </Border.Effect>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="500"/>
+                    <ColumnDefinition Width="890"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Image VerticalAlignment="Top" Margin="0 100 0 0" Source="{Binding OpenPizza.Pizza_Photo}" Width="400" Height="400">
+                        <Image.Effect>
+                            <DropShadowEffect/>
+                        </Image.Effect>
+
+                    </Image>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <ScrollViewer>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="150"/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Grid  Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1000"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+                                    <TextBlock  FontSize="35" Text="{Binding OpenPizza.Pizza_Name}" FontWeight="ExtraBold" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
+
+
+
+
+                                </StackPanel>
+                                <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
+
+                                    <TextBlock  FontSize="30" Foreground="Black" Text="{Binding Price}" Margin="0,16, 0, 0" FontWeight="Bold" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
+                                    
+
+                                </StackPanel>
+                                
+                            </Grid>
+
+                            <StackPanel Grid.Row="2"  Orientation="Horizontal">
+                                <TextBlock Text="Краткое описание" FontSize="30" FontWeight="Bold" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
+                                <TextBlock Margin="-250,50,-300,50" FontSize="24" Text="{Binding OpenPizza.Pizza_Consistance}" TextWrapping="Wrap" Width="840" FontWeight="Light" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
+
+
+                            </StackPanel>
+
+
+                        </Grid>
+
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
