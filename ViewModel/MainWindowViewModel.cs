@@ -23,9 +23,7 @@ namespace PizzaDelivery.ViewModel
             _crud = dbCrud;
             CatalogVM = new CatalogViewModel(dbCrud, this);
             TypePage = new HomeViewModel(dbCrud, wentInUser, wentInWorker, wentInAdmin);
-           // WentIn = true;
-            // CatalogVM = new CatalogViewModel(dbCrud, categoryService, productCatalogService, dialogService);
-            // CartVM = new CartViewModel(dbCrud, categoryService, productCatalogService, dialogService, orderService);
+          
         }
         public CatalogViewModel CatalogVM { get; set; }
 

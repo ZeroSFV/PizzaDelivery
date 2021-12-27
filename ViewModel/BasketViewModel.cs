@@ -22,25 +22,7 @@ namespace PizzaDelivery.ViewModel
         int UserId;
         public BasketViewModel(IDbCrud dbCrud, IPizza _ipizz, int userId)
         {
-            // _crud = dbCrud;
-            // _categoryService = categoryService;
-            //  _catalogService = productCatalogService;
-            // _dialogService = dialogService;
-
-            //  var tempTypes = _categoryService.GetTypeModels();
-            // Types = new ObservableCollection<TypeModel>();
-            //  foreach (var i in tempTypes)
-            //  {
-            //       Types.Add(i);
-            //   }
-
-            /*  var tempProd = _crud.GetAllPizzas();
-              _Pizzas = new ObservableCollection<PizzaModel>();
-              foreach (var i in tempProd)
-             {
-                  i.ViewPrice = $"{i.Pizza_Price:0.#} руб.";
-                  _Pizzas.Add(i);
-             } */
+            
             ipizz = _ipizz;
             crud = dbCrud;
             UserId = userId;
@@ -57,7 +39,7 @@ namespace PizzaDelivery.ViewModel
             if (Baskets.Count > 0)
                 NotEmptyBasket = true;
             else NotEmptyBasket = false;
-            //Pizzas = new ObservableCollection<PizzaModel>(_crud.GetAllPizzas());
+            
 
 
 
