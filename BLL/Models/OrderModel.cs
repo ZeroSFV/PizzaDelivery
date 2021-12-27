@@ -33,6 +33,8 @@ namespace BLL.Models
         public int? Order_Worker { get; set; }
         // public ObservableCollection<OrderStringModel> OrderStrings { get; set; }
 
+        public string ViewPrice { get; set; }
+
         public List<int> OrderStringIds  { get; set; }
        
         public List<int> UserWorkerIds { get; set; }
@@ -52,6 +54,7 @@ namespace BLL.Models
             Order_Worker = o.Order_Worker;
             OrderStringIds = o.OrderString.Select(i => i.OrderString_Id).ToList();
             Status = new StatusModel(o.Status);
+            ViewPrice = $"{o.Order_Price:0.#} руб.";
 
         }
 

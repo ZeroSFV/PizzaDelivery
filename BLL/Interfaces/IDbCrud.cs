@@ -39,5 +39,7 @@ namespace BLL.Interfaces
 
         void CancelThisOrder(int order_Id);
 
+        List<OrderModel> GetOrdersOfUser(int UserId);
+
     }
 }

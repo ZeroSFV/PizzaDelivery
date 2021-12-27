@@ -65,6 +65,10 @@ namespace BLL
             return true;
         }
 
+        public List<OrderModel> GetOrdersOfUser(int UserId)
+        {
+            return dataBase.Orders.GetList().Select(i => new OrderModel(i)).Where(i => i.Order_Client == UserId).ToList();
+        }
         public List<BasketModel> GetAllBasketsByUserId(int UserId)
         {
             return dataBase.Baskets.GetList().Select(i => new BasketModel(i)).Where(i => i.Basket_User == UserId).ToList();

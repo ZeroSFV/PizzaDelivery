@@ -63,6 +63,9 @@
     <Compile Include="ViewModel\OpenButPizzaViewModel.cs" />
     <Compile Include="ViewModel\PageLoginViewModel.cs" />
     <Compile Include="ViewModel\PaymentWindowViewModel.cs" />
+    <Compile Include="ViewModel\ProfileAccountViewModel.cs" />
+    <Compile Include="ViewModel\ProfileOrdersViewModel.cs" />
+    <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\RegistrationWindowViewModel.cs" />
     <Compile Include="View\ActiveOrderUserControl.xaml.cs">
       <DependentUpon>ActiveOrderUserControl.xaml</DependentUpon>
@@ -78,6 +81,15 @@
     </Compile>
     <Compile Include="View\PaymentWindow.xaml.cs">
       <DependentUpon>PaymentWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProfileAccountUserControl.xaml.cs">
+      <DependentUpon>ProfileAccountUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProfileOrdersUserControl.xaml.cs">
+      <DependentUpon>ProfileOrdersUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProfileUserControl.xaml.cs">
+      <DependentUpon>ProfileUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RegistrationWindow.xaml.cs">
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>
@@ -133,6 +145,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PaymentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProfileAccountUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProfileOrdersUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProfileUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

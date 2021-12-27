@@ -134,6 +134,22 @@ namespace PizzaDelivery.ViewModel
             }
         }
 
+
+        private RelayCommand openProfile;
+        public RelayCommand OpenProfile
+        {
+            get
+            {
+                return openProfile ??
+                    (openProfile = new RelayCommand(obj =>
+                    {
+                        TypePage = new ProfileViewModel(_crud, this, Userlog.User_Id);
+                    }
+                ));
+            }
+        }
+
+
         private void CheckOrders(UserModel CurUser)
         {
             bool Orders = _crud.CheckActiveOrder(CurUser.User_Id);

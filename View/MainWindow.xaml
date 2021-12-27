@@ -33,6 +33,10 @@
         <DataTemplate DataType="{x:Type vm:BasketViewModel}">
             <view:BasketUserControl/>
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:ProfileViewModel}">
+            <view:ProfileUserControl/>
+        </DataTemplate>
     </Window.Resources>
 
     <Window.Triggers>
@@ -50,6 +54,9 @@
         </EventTrigger>
 
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtLoginOut">
+        </EventTrigger>
+
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtProfile">
         </EventTrigger>
 
 
@@ -135,7 +142,17 @@
                     </Button.ToolTip>
                 </Button>
             </Grid>
-
+            <Grid Grid.Column="6">
+                <Button x:Name="ButtProfile" Grid.Row="1" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding OpenProfile}"
+                        Visibility="{Binding WentInUser, Converter={StaticResource BooleanToVisibilityConverter}}" Height="Auto" HorizontalContentAlignment="Left" Background="White" BorderBrush="Transparent" Foreground="#000" Grid.RowSpan="2" Margin="20,7,12,7" >
+                    <materialDesign:PackIcon   Kind="User" Foreground="#DD000000" Height="45" Width="45" Margin="2 0 0 0"/>
+                    <Button.ToolTip>
+                        <ToolTip Background="#60FFFFFF" Foreground="White" HasDropShadow="False"
+                Placement="Relative" HorizontalOffset="15" VerticalOffset="10">
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+            </Grid>
             <Grid Grid.Column="10">
                 <Button x:Name="ButtLogin" Grid.Row="1" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding LogIn}"  Visibility="{Binding WentIn, Converter={StaticResource InverseBoolToVisConverter}}"
                          Height="Auto" HorizontalContentAlignment="Left" Background="White" BorderBrush="Transparent" Foreground="#000" Grid.RowSpan="2" Margin="20,7,10,7" >
