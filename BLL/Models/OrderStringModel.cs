@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Models
 {
-    class OrderStringModel
+    public class OrderStringModel
     {
         public int OrderString_Id { get; set; }
 
@@ -17,6 +17,10 @@ namespace BLL.Models
 
         public int OrderString_Pizza { get; set; }
 
+        public string ViewCount { get; set; }
+
+        public PizzaModel Pizza { get; set; }
+
         public OrderStringModel() {}
 
         public OrderStringModel(OrderString os)
@@ -25,6 +29,8 @@ namespace BLL.Models
             OrderString_Count = os.OrderString_Count;
             OrderString_Order = os.OrderString_Order;
             OrderString_Pizza = os.OrderString_Pizza;
+            Pizza = new PizzaModel(os.Pizza);
+            ViewCount = $"{os.OrderString_Count:0.#} шт.";
         }
     }
 }

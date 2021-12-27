@@ -18,6 +18,10 @@
             <view:CatalogUserControl/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type vm:ActiveOrderViewModel}">
+            <view:ActiveOrderUserControl/>
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type local:HomeViewModel}">
             <view:HomeUserControl/>
         </DataTemplate>

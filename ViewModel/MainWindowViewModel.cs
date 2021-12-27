@@ -32,6 +32,11 @@ namespace PizzaDelivery.ViewModel
             TypePage = new OpenButPizzaViewModel(_crud, this, pm);
         }
 
+        public void ClickOrder()
+        {
+            TypePage = new ActiveOrderViewModel(_crud, this, Userlog.User_Id);
+        }
+
         public void ClickCatalog()
         {
             TypePage = new CatalogViewModel(_crud, this);
@@ -42,6 +47,17 @@ namespace PizzaDelivery.ViewModel
         {
             get { return wentIn; }
             set { wentIn = value; ; NotifyPropertyChanged("WentIn"); }
+        }
+
+        private OrderModel orders;
+        public OrderModel Orders
+        {
+            get { return orders; }
+            set
+            {
+                orders = value;
+                NotifyPropertyChanged("Orders");
+            }
         }
 
         private bool wentInWorker;
@@ -56,6 +72,13 @@ namespace PizzaDelivery.ViewModel
         {
             get { return wentInAdmin; }
             set { wentInAdmin = value; ; NotifyPropertyChanged("WentInAdmin"); }
+        }
+
+        private bool activeOrder;
+        public bool ActiveOrder
+        {
+            get { return activeOrder; }
+            set { activeOrder = value; ; NotifyPropertyChanged("ActiveOrder"); }
         }
 
         private bool wentInUser;
@@ -104,11 +127,21 @@ namespace PizzaDelivery.ViewModel
                 return openBasket ??
                     (openBasket = new RelayCommand(obj =>
                     {
-                        TypePage = new BasketViewModel(_crud, this, Userlog.User_Id);
+                        CheckOrders(Userlog);
+                        
                     }
                 ));
             }
         }
+
+        private void CheckOrders(UserModel CurUser)
+        {
+            bool Orders = _crud.CheckActiveOrder(CurUser.User_Id);
+            if (Orders == false)
+                TypePage = new BasketViewModel(_crud, this, Userlog.User_Id);
+            else TypePage = new ActiveOrderViewModel(_crud, this, Userlog.User_Id);
+        }
+        
 
         private RelayCommand openMainWindow;
         public RelayCommand OpenMainWindow

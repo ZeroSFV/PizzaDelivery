@@ -28,5 +28,16 @@ namespace BLL.Interfaces
         void CreateBasket(int logUser, PizzaModel OpenPizza);
 
         int MakeOrder(int UserId,ObservableCollection<BasketModel> Baskets, string Address);
+
+        bool CheckActiveOrder(int CurUser);
+
+        OrderModel GetActiveOrderByUserId(int userId);
+
+        List<OrderStringModel> GetAllActiveStringsOfOrder(int orderId);
+
+        bool CheckIfOrderCanBeCancelled(int order_Id);
+
+        void CancelThisOrder(int order_Id);
+
     }
 }

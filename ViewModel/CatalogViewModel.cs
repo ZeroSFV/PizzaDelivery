@@ -102,27 +102,8 @@ namespace PizzaDelivery.ViewModel
 
         public void GetPizzas(int size, string description)
         {
-            switch (description)
-            {
-                case "Мясная":
-                    Pizzas = new ObservableCollection<PizzaModel>(_crud.GetAllPizzasBySizeDescription(size,description));
-                    break;
-                case "Острая":
-                    Pizzas = new ObservableCollection<PizzaModel>(_crud.GetAllPizzasBySizeDescription(size, description));
-                    break;
-                case "Грибная":
-                    Pizzas = new ObservableCollection<PizzaModel>(_crud.GetAllPizzasBySizeDescription(size, description));
-                    break;
-                case "Рыбная":
-                    Pizzas = new ObservableCollection<PizzaModel>(_crud.GetAllPizzasBySizeDescription(size, description));
-                    break;
-
-            }
-
-            //Pizzas = new ObservableCollection<PizzaModel>(_crud.GetAllPizzas());
-
-
-
+ 
+             Pizzas = new ObservableCollection<PizzaModel>(_crud.GetAllPizzasBySizeDescription(size,description));
 
         }
 

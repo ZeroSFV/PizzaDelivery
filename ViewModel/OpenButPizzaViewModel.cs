@@ -22,14 +22,26 @@ namespace PizzaDelivery.ViewModel
         public OpenButPizzaViewModel(IDbCrud _crud, IPizza _ipizz, PizzaModel pz)
         {
             OpenPizza = pz;
-
-           
-
             crud = _crud;
             ipizz = _ipizz;
             Price = $"Стоимость: {OpenPizza.Pizza_Price:0.#} руб.";
             logUser = ipizz.GetUser();
-           
+            CheckOrders(logUser);
+        }
+
+        private bool butAddVis;
+        public bool ButAddVis
+        {
+            get { return butAddVis; }
+            set { butAddVis = value; ; OnPropertyChanged("ButAddVis"); }
+        }
+
+        private void CheckOrders(int CurUser)
+        {
+            bool Orders = crud.CheckActiveOrder(CurUser);
+            if (Orders == false)
+                ButAddVis = true;
+            else ButAddVis = false;
         }
 
         private PizzaModel openPizza;

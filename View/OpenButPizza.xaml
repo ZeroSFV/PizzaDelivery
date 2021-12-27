@@ -7,12 +7,12 @@
       xmlns:local="clr-namespace:PizzaDelivery.View"
       mc:Ignorable="d" 
        Height="820" Width="1760">
-     
-      
+
+
 
     <Grid>
         <Border Width="1760" Height="820" CornerRadius="25" Margin="5 -5 0 0" Background="Transparent">
-            
+
 
             <Border.Effect>
                 <DropShadowEffect Direction="280" BlurRadius="30"/>
@@ -34,7 +34,7 @@
 
                     </Image>
                 </Grid>
-                    
+
                 <Grid Grid.Column="1">
                     <ScrollViewer>
                         <Grid>
@@ -66,10 +66,10 @@
                                 <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
 
                                     <TextBlock  FontSize="30" Foreground="Black" Text="{Binding Price}" Margin="0,16, 0, 0" FontWeight="Bold" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
-                                    
+
 
                                 </StackPanel>
-                                
+
                             </Grid>
 
                             <StackPanel Grid.Row="2"  Orientation="Horizontal">
@@ -78,8 +78,9 @@
 
 
                             </StackPanel>
-                            <Button x:Name="ButtonAddBasket" Grid.Row="3" Click="ButtonAddBasket_Click" HorizontalAlignment="Right"  Command="{Binding AddPizzaToBasket}" Background="Red" Foreground="White" FontSize="45" Content="В корзину"  Margin="0,183,46,30" Height="Auto" Width="298">
+                            <Button x:Name="ButtonAddBasket" Grid.Row="3" Click="ButtonAddBasket_Click" HorizontalAlignment="Right"  Command="{Binding AddPizzaToBasket}" Background="Red" Foreground="White" FontSize="45" Content="В корзину"  Margin="0,183,32,30" Height="Auto" Width="298" Visibility="{Binding ButAddVis, Converter={StaticResource BooleanToVisibilityConverter}}">
                             </Button>
+                            <Label Content="Вы не можете добавить пиццу в корзину, пока у вас есть активный заказ"  Foreground="Red" HorizontalAlignment="Left" Margin="263,213,0,0" VerticalAlignment="Top" RenderTransformOrigin="-6.411,-1.331" FontSize="16" FontWeight="Bold" Visibility="{Binding ButAddVis, Converter={StaticResource InverseBoolToVisConverter}}" Height="72" Grid.Row="3" Width="601"/>
 
                         </Grid>
 

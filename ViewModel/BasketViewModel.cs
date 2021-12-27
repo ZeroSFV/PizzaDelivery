@@ -11,6 +11,7 @@ using PizzaDelivery.Interface;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using PizzaDelivery.View;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace PizzaDelivery.ViewModel
 {
@@ -83,8 +84,13 @@ namespace PizzaDelivery.ViewModel
                 bool? result = pay.ShowDialog();
                 if (result==true)
                 {
-                    crud.MakeOrder(UserId, Baskets, Adress + "кв: " + Flat + "Под: " + Entrance + "Этаж: " + Floor);
-                    GetBaskets(UserId);
+                    crud.MakeOrder(UserId, Baskets, Adress + ",кв: " + Flat + ",Под: " + Entrance + ",Этаж: " + Floor);
+                    ipizz.ClickOrder();
+                    var notyfy = new ToastContentBuilder();
+                    notyfy.AddText("Ваш заказ был успешно создан. \n Переносим вас в окно активных заказов.\n Теперь в вашей корзине показан ваш активный заказ! \n");
+
+                    notyfy.Show();
+                    //GetBaskets(UserId);
                 }
             }
         }

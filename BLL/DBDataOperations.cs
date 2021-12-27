@@ -23,7 +23,7 @@ namespace BLL
 
         public List<PizzaModel> GetAllPizzasBySizeDescription(int size, string Description)
         {
-            return dataBase.Pizzas.GetList().Select(i => new PizzaModel(i)).Where(i => i.Pizza_Size == size).Where(i => i.Pizza_Prescence == true).Where(i => i.Pizza_Description == Description).ToList();
+            return dataBase.Pizzas.GetList().Select(i => new PizzaModel(i)).Where(i => i.Pizza_Size == size).Where(i => i.Pizza_Prescence == true).Where(i => i.Pizza_Description.Contains(Description) == true).ToList();
         }
 
         public UserModel LoginTrue(UserModel user)
@@ -87,6 +87,7 @@ namespace BLL
                 order.Order_Price = 450;
             order.Order_PhoneNumber = us.User_PhoneNumer;
             order.Order_Status = 1;
+            order.Status = dataBase.Statuses.GetItem(order.Order_Status);
             order.User = us;
             dataBase.Orders.Create(order);
 
@@ -124,6 +125,39 @@ namespace BLL
             Save();
             return 1;
 
+        }
+
+        public bool CheckIfOrderCanBeCancelled(int order_Id)
+        {
+            Order curOrder = dataBase.Orders.GetItem(order_Id);
+            if (curOrder.Order_Status < 3)
+                return true;
+            else return false;
+        }
+
+        public void CancelThisOrder(int order_Id)
+        {
+            Order curOrder = dataBase.Orders.GetItem(order_Id);
+            curOrder.Order_Status = 6;
+            Save();
+        }
+
+        public OrderModel GetActiveOrderByUserId(int userId)
+        {
+            return dataBase.Orders.GetList().Select(i => new OrderModel(i)).Where(i => i.Order_Client == userId).Where(i => i.Order_Status < 5).FirstOrDefault();
+        }
+
+        public List<OrderStringModel> GetAllActiveStringsOfOrder(int orderId)
+        {
+            return dataBase.OrderStrings.GetList().Select(i => new OrderStringModel(i)).Where(i => i.OrderString_Order == orderId).ToList();
+        }
+
+        public bool CheckActiveOrder(int CurUser)
+        {
+            Order ord = dataBase.Orders.GetList().Where(i => i.Order_Client == CurUser).Where(i=>i.Order_Status<5).FirstOrDefault();
+            if (ord == null)
+                return false;
+            else return true;
         }
 
         public void DeleteBasket(int id)

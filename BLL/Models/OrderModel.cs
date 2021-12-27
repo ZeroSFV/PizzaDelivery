@@ -25,6 +25,10 @@ namespace BLL.Models
 
         public int Order_Client { get; set; }
 
+        public int Order_Status { get; set; }
+
+        public StatusModel Status { get; set; }
+
         public int? Order_Courier { get; set; }
         public int? Order_Worker { get; set; }
         // public ObservableCollection<OrderStringModel> OrderStrings { get; set; }
@@ -40,14 +44,15 @@ namespace BLL.Models
             Order_Id = o.Order_Id;
             Order_CreationTime = o.Order_CreationTime;
             Order_Price = o.Order_Price;
+            Order_Status = o.Order_Status;
             Order_Address = o.Order_Address;
             Order_PhoneNumber = o.Order_PhoneNumber;
             Order_Client = o.Order_Client;
             Order_Courier = o.Order_Courier;
             Order_Worker = o.Order_Worker;
             OrderStringIds = o.OrderString.Select(i => i.OrderString_Id).ToList();
-           
-           
+            Status = new StatusModel(o.Status);
+
         }
 
     }
