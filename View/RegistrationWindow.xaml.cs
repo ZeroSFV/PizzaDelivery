@@ -54,8 +54,7 @@ namespace PizzaDelivery.View
             {
                 var notyfy = new ToastContentBuilder();
                 notyfy.AddText("ПОЗДРАВЛЯЕМ! \nРегистрация прошла успешно.");
-                //notyfy.AddAppLogoOverride(new Uri
-                //    (@"C:\Users\Frortate\Desktop\КУРСОВАЯ\Курсовая WPF SE\SE Селезнёв Д.А. 3-41xx  (Курсовое приложение)\SE Селезнёв Д.А. 3-41xx  (Курсовое приложение)\Image\notpage.png"));
+               
                 notyfy.Show();
                 this.Close();
             }
@@ -63,8 +62,7 @@ namespace PizzaDelivery.View
             {
                 var notyfy = new ToastContentBuilder();
                 notyfy.AddText("НЕУДАЧА! \n Не вышло создать аккаунт \n Возможно, вы не ввели какие-либо данные \n Также возможно, что вы ввели телефон и паспорт неправильно \n Попробуйте снова");
-                //notyfy.AddAppLogoOverride(new Uri
-                //    (@"C:\Users\Frortate\Desktop\КУРСОВАЯ\Курсовая WPF SE\SE Селезнёв Д.А. 3-41xx  (Курсовое приложение)\SE Селезнёв Д.А. 3-41xx  (Курсовое приложение)\Image\notpage.png"));
+                
                 notyfy.Show();
                 this.Close();
             }

@@ -10,28 +10,38 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PizzaDelivery.Interface;
+using PizzaDelivery.ViewModel;
+using BLL.Interfaces;
 using Microsoft.Toolkit.Uwp.Notifications;
+using BLL.Models;
 
 namespace PizzaDelivery.View
 {
     /// <summary>
-    /// Логика взаимодействия для OpenButPizza.xaml
+    /// Логика взаимодействия для PaymentWindow.xaml
     /// </summary>
-    public partial class OpenButPizza : UserControl
+    public partial class PaymentWindow : Window
     {
-        public OpenButPizza()
+        public PaymentWindow()
         {
             InitializeComponent();
+            DataContext = new PaymentWindowViewModel();
         }
-
-        private void ButtonAddBasket_Click(object sender, RoutedEventArgs e)
+        private void ButtPay_Click(object sender, RoutedEventArgs e)
         {
+
+            DialogResult = true;
             var notyfy = new ToastContentBuilder();
-            notyfy.AddText("Пицца добавлена в корзину. \n");
-            
+
+            notyfy.AddText("Успех! \n Вы провели оплату! \n");
+
             notyfy.Show();
+           
+            this.Close();
+
         }
+        
     }
 }

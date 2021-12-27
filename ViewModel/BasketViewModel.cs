@@ -10,6 +10,7 @@ using BLL.Models;
 using PizzaDelivery.Interface;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using PizzaDelivery.View;
 
 namespace PizzaDelivery.ViewModel
 {
@@ -76,6 +77,34 @@ namespace PizzaDelivery.ViewModel
         private void CloseMakeOrder(object args)
         {
             ipizz.ClickCatalog();
+        }
+
+        public ICommand AddOrder
+        {
+            get
+            {
+                if (_addOrder == null)
+                    _addOrder = new RelayCommand(args => AddNewOrder(args));
+                return _addOrder;
+            }
+        }
+        private ICommand _addOrder;
+        private void AddNewOrder(object args)
+        {
+            if (string.IsNullOrWhiteSpace(Adress) || string.IsNullOrWhiteSpace(Flat) || string.IsNullOrWhiteSpace(Entrance) || string.IsNullOrWhiteSpace(Floor))
+            {
+
+            }
+            else 
+            {
+                PaymentWindow pay = new PaymentWindow();
+                bool? result = pay.ShowDialog();
+                if (result==true)
+                {
+                    crud.MakeOrder(UserId, Baskets, Adress + "кв: " + Flat + "Под: " + Entrance + "Этаж: " + Floor);
+                    GetBaskets(UserId);
+                }
+            }
         }
 
         private bool notEmptyBasket;

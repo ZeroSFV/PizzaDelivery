@@ -106,30 +106,30 @@
                     <Grid Grid.Row="0" Grid.ColumnSpan="3" Visibility="{Binding NotEmptyBasket, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <StackPanel>
                             <TextBlock Text="Улица:" FontSize="40" Margin="30 0 10 0"  Foreground="Black" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
-                            <TextBox Text="{Binding Adress, Mode=OneWayToSource}" FontSize="35" Foreground="Black" BorderBrush="Black"  Margin="10,0,10,0" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
+                            <TextBox Text="{Binding Adress, Mode=OneWayToSource}" FontSize="35" Foreground="Black" BorderBrush="Black"  Margin="10,-10,10,0" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
                         </StackPanel>
                     </Grid>
 
                     <Grid Grid.Row="1" Grid.Column="0" Visibility="{Binding NotEmptyBasket, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <StackPanel>
                             <TextBlock Text="Квартира:" FontSize="40" Margin="30 0 10 0"  Foreground="Black" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
-                            <TextBox Text="{Binding Flat, Mode=OneWayToSource}" FontSize="35" Foreground="Black" BorderBrush="Black"  Margin="10,0,10,0" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
+                            <TextBox Text="{Binding Flat, Mode=OneWayToSource}" FontSize="35" Foreground="Black" BorderBrush="Black"  Margin="10,-10,10,0" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
                         </StackPanel>
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="1" Visibility="{Binding NotEmptyBasket, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <StackPanel>
                             <TextBlock Text="Подъезд:" FontSize="40" Margin="30 0 10 0"  Foreground="Black" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
-                            <TextBox Text="{Binding Entrance, Mode=OneWayToSource}" FontSize="35" Foreground="Black" BorderBrush="Black"  Margin="10,0,10,0" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
+                            <TextBox Text="{Binding Entrance, Mode=OneWayToSource}" FontSize="35" Foreground="Black" BorderBrush="Black"  Margin="10,-10,10,0" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
                         </StackPanel>
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="2" Visibility="{Binding NotEmptyBasket, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <StackPanel>
                             <TextBlock Text="Этаж:" FontSize="40" Margin="30 0 10 0"  Foreground="Black" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
-                            <TextBox Text="{Binding Floor, Mode=OneWayToSource}" FontSize="35" Foreground="Black" BorderBrush="Black"  Margin="10,0,10,0" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
+                            <TextBox Text="{Binding Floor, Mode=OneWayToSource}" FontSize="35" Foreground="Black" BorderBrush="Black"  Margin="10,-10,10,0" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
                         </StackPanel>
                     </Grid>
 
-                    <Button  Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,34,28" Content="Перейти на сайт оплаты" Foreground="Black" BorderBrush="#AAEA00" Background="#FFB9FF00" Visibility="{Binding NotEmptyBasket, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <Button  Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,34,28" Content="Перейти на сайт оплаты" Foreground="Black" BorderBrush="#AAEA00" Background="#FFB9FF00" Command="{Binding AddOrder}" Visibility="{Binding NotEmptyBasket, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
                 </Grid>
                 <TextBlock Text="Ваша корзина" FontWeight="DemiBold" Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="Black" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Height="32"/>

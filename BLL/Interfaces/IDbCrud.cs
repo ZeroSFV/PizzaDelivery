@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BLL.Models;
+using System.Collections.ObjectModel;
 
 namespace BLL.Interfaces
 {
@@ -25,5 +26,7 @@ namespace BLL.Interfaces
         void UpdateBasket(BasketModel basket);
 
         void CreateBasket(int logUser, PizzaModel OpenPizza);
+
+        int MakeOrder(int UserId,ObservableCollection<BasketModel> Baskets, string Address);
     }
 }

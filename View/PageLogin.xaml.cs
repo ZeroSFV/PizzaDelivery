@@ -62,16 +62,14 @@ namespace PizzaDelivery.View
             if (Userlog == null)
             {
                 notyfy.AddText("НЕУДАЧА! \nНе вышло аойти в аккаунт \nПопробуйте снова");
-                //notyfy.AddAppLogoOverride(new Uri
-                //    (@"C:\Users\Frortate\Desktop\КУРСОВАЯ\Курсовая WPF SE\SE Селезнёв Д.А. 3-41xx  (Курсовое приложение)\SE Селезнёв Д.А. 3-41xx  (Курсовое приложение)\Image\notpage.png"));
+                
                 notyfy.Show();
             }
             else
             if (Userlog != null)
             {
                 notyfy.AddText("ПОЗДРАВЛЯЕМ! \nВы успешно зашли в свой аккуант. \nУдачного времяприпровождения :)");
-                //notyfy.AddAppLogoOverride(new Uri
-                //    (@"C:\Users\Frortate\Desktop\КУРСОВАЯ\Курсовая WPF SE\SE Селезнёв Д.А. 3-41xx  (Курсовое приложение)\SE Селезнёв Д.А. 3-41xx  (Курсовое приложение)\Image\notpage.png"));
+                
                 notyfy.Show();
             }
             this.Close();

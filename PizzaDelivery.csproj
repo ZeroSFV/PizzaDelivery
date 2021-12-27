@@ -61,6 +61,7 @@
     <Compile Include="ViewModel\BasketViewModel.cs" />
     <Compile Include="ViewModel\OpenButPizzaViewModel.cs" />
     <Compile Include="ViewModel\PageLoginViewModel.cs" />
+    <Compile Include="ViewModel\PaymentWindowViewModel.cs" />
     <Compile Include="ViewModel\RegistrationWindowViewModel.cs" />
     <Compile Include="View\BasketUserControl.xaml.cs">
       <DependentUpon>BasketUserControl.xaml</DependentUpon>
@@ -70,6 +71,9 @@
     </Compile>
     <Compile Include="View\PageLogin.xaml.cs">
       <DependentUpon>PageLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PaymentWindow.xaml.cs">
+      <DependentUpon>PaymentWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RegistrationWindow.xaml.cs">
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>
@@ -117,6 +121,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PageLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PaymentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

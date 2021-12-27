@@ -8,13 +8,14 @@ using DAL.Entities;
 using BLL.Models;
 using DAL.Interfaces;
 using Microsoft.Toolkit.Uwp.Notifications;
+using System.Collections.ObjectModel;
 
 namespace BLL
 {
     public class DBDataOperations : IDbCrud
     {
         IDbRepository dataBase;
-        
+
         public DBDataOperations(IDbRepository repos)
         {
             dataBase = repos;
@@ -22,7 +23,7 @@ namespace BLL
 
         public List<PizzaModel> GetAllPizzasBySizeDescription(int size, string Description)
         {
-            return dataBase.Pizzas.GetList().Select(i => new PizzaModel(i)).Where(i=>i.Pizza_Size==size).Where(i=>i.Pizza_Prescence==true).Where(i => i.Pizza_Description == Description).ToList();
+            return dataBase.Pizzas.GetList().Select(i => new PizzaModel(i)).Where(i => i.Pizza_Size == size).Where(i => i.Pizza_Prescence == true).Where(i => i.Pizza_Description == Description).ToList();
         }
 
         public UserModel LoginTrue(UserModel user)
@@ -46,7 +47,7 @@ namespace BLL
         {
             if (string.IsNullOrWhiteSpace(user.User_Login) || string.IsNullOrWhiteSpace(user.User_Password) || string.IsNullOrWhiteSpace(user.User_FullName) || string.IsNullOrWhiteSpace(user.User_PhoneNumer) || string.IsNullOrWhiteSpace(user.User_Passport))
                 return false;
-            if (user.User_PhoneNumer.Contains("_") ==true)
+            if (user.User_PhoneNumer.Contains("_") == true)
                 return false;
             if (user.User_Passport.Contains("_") == true)
                 return false;
@@ -59,7 +60,7 @@ namespace BLL
             if (isExist)
                 return false;
 
-            dataBase.Users.Create(new User { User_Login = user.User_Login, User_Password = user.User_Password, User_FullName = user.User_FullName, User_Passport = user.User_Passport, User_PhoneNumer = user.User_PhoneNumer, User_UserType = 1});
+            dataBase.Users.Create(new User { User_Login = user.User_Login, User_Password = user.User_Password, User_FullName = user.User_FullName, User_Passport = user.User_Passport, User_PhoneNumer = user.User_PhoneNumer, User_UserType = 1 });
             Save();
             return true;
         }
@@ -67,6 +68,62 @@ namespace BLL
         public List<BasketModel> GetAllBasketsByUserId(int UserId)
         {
             return dataBase.Baskets.GetList().Select(i => new BasketModel(i)).Where(i => i.Basket_User == UserId).ToList();
+        }
+
+        public int MakeOrder(int UserId, ObservableCollection<BasketModel> Baskets, string Address)
+        {
+            User us = dataBase.Users.GetItem(UserId);
+            List<Basket> Basks = dataBase.Baskets.GetList().Where(i => i.Basket_User == UserId).ToList();
+            Order order = new Order();
+            order.Order_Client = UserId;
+            order.Order_CreationTime = DateTime.Now;
+            order.Order_Address = Address;
+            order.Order_Price = 0;
+            for (int i = 0; i<Basks.Count;i++)
+            {
+                order.Order_Price += Basks[i].Basket_Price;
+            }
+            if (order.Order_Price < 450)
+                order.Order_Price = 450;
+            order.Order_PhoneNumber = us.User_PhoneNumer;
+            order.Order_Status = 1;
+            order.User = us;
+            dataBase.Orders.Create(order);
+
+            if (dataBase.Save() <= 0)
+                return 0;
+            var orders = dataBase.Orders.GetList();
+            int key = orders[orders.Count - 1].Order_Id;
+
+            foreach (var i in Basks)
+            {
+                OrderString line = new OrderString();
+                line.OrderString_Count = i.Basket_Amount;
+                line.OrderString_Order = key;
+                line.OrderString_Pizza = i.Basket_Pizza;
+                line.Order = dataBase.Orders.GetItem(key);
+                line.Pizza = i.Pizza;
+               
+                dataBase.OrderStrings.Create(line);
+            }
+
+            
+
+            if (dataBase.Save() <= 0)
+                return 0;
+
+
+            var carts = dataBase.Baskets.GetList();
+            for (int j = 0; j < carts.Count; j++)
+            {
+                if (carts[j].Basket_User == UserId)
+                {
+                    dataBase.Baskets.Delete(carts[j].Basket_Id);
+                }
+            }
+            Save();
+            return 1;
+
         }
 
         public void DeleteBasket(int id)

@@ -34,8 +34,7 @@ namespace PizzaDelivery
         {
             var notyfy = new ToastContentBuilder();
             notyfy.AddText("Жаль что вы ушли. \n Будем ждать вас снова");
-            //notyfy.AddAppLogoOverride(new Uri
-            //    (@"C:\Users\Frortate\Desktop\КУРСОВАЯ\Курсовая WPF SE\SE Селезнёв Д.А. 3-41xx  (Курсовое приложение)\SE Селезнёв Д.А. 3-41xx  (Курсовое приложение)\Image\notpage.png"));
+            
             notyfy.Show();
         }
     }

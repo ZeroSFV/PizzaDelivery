@@ -79,12 +79,12 @@
 
                         <StackPanel Grid.Row="1">
                             <TextBlock Text="Логин:" FontSize="40" Margin="40 30 10 10"  Foreground="White"/>
-                            <TextBox Text="{Binding Logined, Mode=OneWayToSource}" FontSize="35" Foreground="White" BorderBrush="White" Margin="10,30,10,10"/>
+                            <TextBox Text="{Binding Logined, Mode=OneWayToSource}" FontSize="35" Foreground="White" BorderBrush="White" Margin="10,0,10,10" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
                         </StackPanel>
 
                         <StackPanel Grid.Row="2">
                             <TextBlock Text="Пароль:" FontSize="40" Margin="40 30 10 10"  Foreground="White"/>
-                            <PasswordBox x:Name="Password" FontSize="35" Foreground="White" BorderBrush="White"  Margin="10,30,10,10"/>
+                            <PasswordBox x:Name="Password" FontSize="35" Foreground="White" BorderBrush="White" FontFamily="component/#CQ Mono [RUS by Daymarius]" Margin="10,0,10,10"/>
                         </StackPanel>
 
                         <Button x:Name="GoIn" Grid.Row="3" Style="{StaticResource MaterialDesignFlatButton}"
