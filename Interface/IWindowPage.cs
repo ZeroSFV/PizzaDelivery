@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PizzaDelivery.Interface
 {
-    public enum TypeWindow { HomeUserControl, CatalogUserControl, OpenButPizza, BasketUserControl, ProfileUserControl, LoginPage, ActiveOrderUserControl }
+    public enum TypeWindow { HomeUserControl, CatalogUserControl, OpenButPizza, BasketUserControl, ProfileUserControl, LoginPage, ActiveOrderUserControl, WorkerAcceptsUserControl, WorkerAcceptedOrdersUserControl, CourierAcceptsUserControl, CourierAcceptedOrdersUserControl }
     public interface IWindowPage
     {
         TypeWindow GetWindowType();

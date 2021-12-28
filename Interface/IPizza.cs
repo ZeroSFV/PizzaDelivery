@@ -13,6 +13,9 @@ namespace PizzaDelivery.Interface
 
         void ClickCatalog();
         void ClickOrder();
+        void ClickAccept();
         int GetUser();
+
+        void ClickNextStatus();
     }
 }

@@ -18,13 +18,14 @@ namespace PizzaDelivery
     {
         IDbCrud _crud;
        
-        public HomeViewModel(IDbCrud dbCrud, bool wentInClient, bool wentInWorker, bool wentInAdmin)
+        public HomeViewModel(IDbCrud dbCrud, bool wentInClient, bool wentInWorker, bool wentInAdmin, bool wentInCourier)
         {
             _crud = dbCrud;
             WentInClient = wentInClient;
             WentInWorker = wentInWorker;
             WentInAdmin = wentInAdmin;
-            if (WentInClient == true || wentInAdmin == true || wentInWorker == true)
+            WentInCourier = wentInCourier;
+            if (WentInClient == true || wentInAdmin == true || wentInWorker == true|| wentInWorker==true)
                 WentIn = true;
         }
 
@@ -41,6 +42,14 @@ namespace PizzaDelivery
             get { return wentInWorker; }
             set { wentInWorker = value; ; NotifyPropertyChanged("WentInWorker"); }
         }
+
+        private bool wentInCourier;
+        public bool WentInCourier
+        {
+            get { return wentInCourier; }
+            set { wentInCourier = value; ; NotifyPropertyChanged("WentInCourier"); }
+        }
+
 
         private bool wentInAdmin;
         public bool WentInAdmin

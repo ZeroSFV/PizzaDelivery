@@ -19,6 +19,8 @@ namespace BLL.Models
 
         public string ViewCount { get; set; }
 
+        public string ViewPrice { get; set; }
+
         public PizzaModel Pizza { get; set; }
 
         public OrderStringModel() {}
@@ -31,6 +33,7 @@ namespace BLL.Models
             OrderString_Pizza = os.OrderString_Pizza;
             Pizza = new PizzaModel(os.Pizza);
             ViewCount = $"{os.OrderString_Count:0.#} шт.";
+            ViewPrice = $"{os.OrderString_Count*os.Pizza.Pizza_Price:0.#} руб.";
         }
     }
 }

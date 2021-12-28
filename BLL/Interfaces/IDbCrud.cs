@@ -41,5 +41,15 @@ namespace BLL.Interfaces
 
         List<OrderModel> GetOrdersOfUser(int UserId);
 
+        List<OrderModel> GetAllWorkInOrders();
+
+        void AcceptOrderWorker(int UserId, OrderModel Orders);
+
+        void ChangeToNextStatus(OrderModel Orders);
+
+        OrderModel GetActiveOrdersOfWorker(UserModel User);
+
+        List<OrderModel> GetAcceptedOrdersOfWorker(int UserId);
+
     }
 }

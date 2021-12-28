@@ -60,6 +60,8 @@
     </ApplicationDefinition>
     <Compile Include="ViewModel\ActiveOrderViewModel.cs" />
     <Compile Include="ViewModel\BasketViewModel.cs" />
+    <Compile Include="ViewModel\CourierAcceptedOrdersViewModel.cs" />
+    <Compile Include="ViewModel\CourierAcceptsViewModel.cs" />
     <Compile Include="ViewModel\OpenButPizzaViewModel.cs" />
     <Compile Include="ViewModel\PageLoginViewModel.cs" />
     <Compile Include="ViewModel\PaymentWindowViewModel.cs" />
@@ -67,11 +69,19 @@
     <Compile Include="ViewModel\ProfileOrdersViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\RegistrationWindowViewModel.cs" />
+    <Compile Include="ViewModel\WorkerAcceptedOrdersViewModel.cs" />
+    <Compile Include="ViewModel\WorkerAcceptsViewModel.cs" />
     <Compile Include="View\ActiveOrderUserControl.xaml.cs">
       <DependentUpon>ActiveOrderUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\BasketUserControl.xaml.cs">
       <DependentUpon>BasketUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CourierAcceptedOrdersUserControl.xaml.cs">
+      <DependentUpon>CourierAcceptedOrdersUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CourierAcceptsUserControl.xaml.cs">
+      <DependentUpon>CourierAcceptsUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\OpenButPizza.xaml.cs">
       <DependentUpon>OpenButPizza.xaml</DependentUpon>
@@ -94,6 +104,12 @@
     <Compile Include="View\RegistrationWindow.xaml.cs">
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\WorkerAcceptedOrdersUserControl.xaml.cs">
+      <DependentUpon>WorkerAcceptedOrdersUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WorkerAcceptsUserControl.xaml.cs">
+      <DependentUpon>WorkerAcceptsUserControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\ActiveOrderUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -103,6 +119,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CatalogUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CourierAcceptedOrdersUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CourierAcceptsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -161,6 +185,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RegistrationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WorkerAcceptedOrdersUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WorkerAcceptsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -22,14 +22,30 @@ namespace PizzaDelivery.ViewModel
         {
             _crud = dbCrud;
             CatalogVM = new CatalogViewModel(dbCrud, this);
-            TypePage = new HomeViewModel(dbCrud, wentInUser, wentInWorker, wentInAdmin);
-          
+            TypePage = new HomeViewModel(dbCrud, WentInUser, WentInWorker, WentInAdmin, WentInCourier);
+            WorkerHaveOrders = true;
+            WorkerHaveOrders1 = false;
+
+
         }
         public CatalogViewModel CatalogVM { get; set; }
 
         public void ClickPizza(PizzaModel pm)
         {
             TypePage = new OpenButPizzaViewModel(_crud, this, pm);
+        }
+
+        public void ClickAccept()
+        {
+            CheckWorkerForOrders(Userlog);
+            TypePage = new WorkerAcceptedOrdersViewModel(_crud, this, Userlog.User_Id);
+
+        }
+
+        public void ClickNextStatus()
+        {
+            CheckWorkerForOrders(Userlog);
+            TypePage = new WorkerAcceptsViewModel(_crud, this, Userlog.User_Id);
         }
 
         public void ClickOrder()
@@ -41,7 +57,7 @@ namespace PizzaDelivery.ViewModel
         {
             TypePage = new CatalogViewModel(_crud, this);
         }
-
+        
         private bool wentIn;
         public bool WentIn
         {
@@ -67,6 +83,27 @@ namespace PizzaDelivery.ViewModel
             set { wentInWorker = value; ; NotifyPropertyChanged("WentInWorker"); }
         }
 
+        private bool workerHaveOrders;
+        public bool WorkerHaveOrders
+        {
+            get { return workerHaveOrders; }
+            set { workerHaveOrders = value; ; NotifyPropertyChanged("WorkerHaveOrders"); }
+        }
+
+        private bool workerHaveOrders1;
+        public bool WorkerHaveOrders1
+        {
+            get { return workerHaveOrders1; }
+            set { workerHaveOrders1 = value; ; NotifyPropertyChanged("WorkerHaveOrders1"); }
+        }
+
+        private bool wentInCourier;
+        public bool WentInCourier
+        {
+            get { return wentInCourier; }
+            set { wentInCourier = value; ; NotifyPropertyChanged("WentInCourier"); }
+        }
+
         private bool wentInAdmin;
         public bool WentInAdmin
         {
@@ -86,6 +123,17 @@ namespace PizzaDelivery.ViewModel
         {
             get { return wentInUser; }
             set { wentInUser = value; ; NotifyPropertyChanged("WentInUser"); }
+        }
+
+        private OrderModel order;
+        public OrderModel Order
+        {
+            get { return order; }
+            set
+            {
+                order = value;
+                NotifyPropertyChanged("Order");
+            }
         }
 
         private IWindowPage typePage;
@@ -134,6 +182,40 @@ namespace PizzaDelivery.ViewModel
             }
         }
 
+        private RelayCommand openAccepts;
+        public RelayCommand OpenAccepts
+        {
+            get
+            {
+                return openAccepts ??
+                    (openAccepts = new RelayCommand(obj =>
+                    {
+                        TypePage = new WorkerAcceptsViewModel(_crud, this, Userlog.User_Id);
+
+                    }
+                ));
+            }
+        }
+
+        private RelayCommand openAcceptedOrders;
+        public RelayCommand OpenAcceptedOrders
+        {
+            get
+            {
+                return openAcceptedOrders ??
+                    (openAcceptedOrders = new RelayCommand(obj =>
+                    {
+                        TypePage = new WorkerAcceptedOrdersViewModel(_crud, this, Userlog.User_Id);
+
+                    }
+                ));
+            }
+        }
+
+        
+
+
+
 
         private RelayCommand openProfile;
         public RelayCommand OpenProfile
@@ -167,9 +249,24 @@ namespace PizzaDelivery.ViewModel
                 return openMainWindow ??
                     (openMainWindow = new RelayCommand(obj =>
                     {
-                        TypePage = new HomeViewModel(_crud, WentInUser, WentInWorker, wentInAdmin);
+                        TypePage = new HomeViewModel(_crud, WentInUser, WentInWorker, WentInAdmin, WentInCourier);
                     }
                 ));
+            }
+        }
+
+        private void CheckWorkerForOrders(UserModel User)
+        {
+            Order = _crud.GetActiveOrdersOfWorker(User);
+            if (Order==null)
+            {
+                WorkerHaveOrders = false;
+                WorkerHaveOrders1 = false;
+            }
+            else
+            {
+                WorkerHaveOrders = true;
+                WorkerHaveOrders1 = true;
             }
         }
 
@@ -187,19 +284,24 @@ namespace PizzaDelivery.ViewModel
                         {
                             WentIn = true;
                             Userlog = _crud.User(login.GetUserlog().User_Id);
-                            if (Userlog.User_Id == 1)
+                            if (Userlog.User_UserType == 1)
                             {
                                 WentInUser = true;
                             }
-                            if (Userlog.User_Id == 2 || Userlog.User_Id == 3)
+                            if (Userlog.User_UserType == 2)
                             {
                                 WentInWorker = true;
+                                CheckWorkerForOrders(Userlog);
                             }
-                            if (Userlog.User_Id == 4)
+                            if (Userlog.User_UserType == 3)
+                            {
+                                wentInCourier = true;
+                            }
+                            if (Userlog.User_UserType == 4)
                             {
                                 WentInAdmin = true;
                             }
-                            TypePage = new HomeViewModel(_crud, WentInUser, WentInWorker, wentInAdmin);
+                            TypePage = new HomeViewModel(_crud, WentInUser, WentInWorker, wentInAdmin, WentInCourier);
                             // ReminderLikeEventUser();
                         } 
 
@@ -220,9 +322,11 @@ namespace PizzaDelivery.ViewModel
                         WentInUser = false;
                         WentInWorker = false;
                         WentInAdmin = false;
+                        WentInCourier = false;
+                        WorkerHaveOrders = true;
+                        WorkerHaveOrders1 = false;
                         Userlog = null;
-                        if (TypePage.GetWindowType() != TypeWindow.HomeUserControl)
-                            TypePage = new HomeViewModel(_crud, WentInUser, wentInWorker, WentInAdmin);
+                        TypePage = new HomeViewModel(_crud, WentInUser, wentInWorker, WentInAdmin, WentInCourier);
                     }
                 ));
             }

@@ -108,7 +108,9 @@ namespace BLL
                 line.OrderString_Pizza = i.Basket_Pizza;
                 line.Order = dataBase.Orders.GetItem(key);
                 line.Pizza = i.Pizza;
-               
+                order = dataBase.Orders.GetItem(key);
+                order.OrderString.Add(line);
+                dataBase.Orders.Update(order);
                 dataBase.OrderStrings.Create(line);
             }
 
@@ -129,6 +131,54 @@ namespace BLL
             Save();
             return 1;
 
+        }
+
+        public List<OrderModel> GetAllWorkInOrders()
+        {
+            var orders = dataBase.Orders.GetList();
+            var orderLines = dataBase.OrderStrings.GetList();
+
+            List<OrderModel> orderModels = orders.Select(i =>new OrderModel(i)).Where(i => i.Order_Status == 1).Where(i=>i.Order_Worker==null).ToList();
+
+            foreach (var i in orderModels)
+            {
+                foreach (var j in orderLines)
+                {
+                    if (j.OrderString_Order == i.Order_Id)
+                    {
+                        var prod = dataBase.Pizzas.GetItem(j.OrderString_Pizza);
+                        i.OrderLines.Add(new OrderStringModel { OrderString_Count = j.OrderString_Count, Pizza = new PizzaModel(j.Pizza), OrderString_Order = j.OrderString_Order, OrderString_Pizza = j.OrderString_Pizza, ViewCount = $"{j.OrderString_Count:0.#} шт.", ViewPrice = $"{j.OrderString_Count * j.Pizza.Pizza_Price:0.#} руб." }); 
+                    }
+                }
+                
+            }
+
+            return orderModels;
+
+        }
+
+        public List<OrderModel> GetAcceptedOrdersOfWorker(int UserId)
+        {
+            var orders = dataBase.Orders.GetList();
+            var orderLines = dataBase.OrderStrings.GetList();
+           // User us = dataBase.Users.GetItem(UserId);
+
+            List<OrderModel> orderModels = orders.Select(i => new OrderModel(i)).Where(i => i.Order_Status == 2).Where(i => i.Order_Worker == UserId).ToList();
+
+            foreach (var i in orderModels)
+            {
+                foreach (var j in orderLines)
+                {
+                    if (j.OrderString_Order == i.Order_Id)
+                    {
+                        var prod = dataBase.Pizzas.GetItem(j.OrderString_Pizza);
+                        i.OrderLines.Add(new OrderStringModel { OrderString_Count = j.OrderString_Count, Pizza = new PizzaModel(j.Pizza), OrderString_Order = j.OrderString_Order, OrderString_Pizza = j.OrderString_Pizza, ViewCount = $"{j.OrderString_Count:0.#} шт.", ViewPrice = $"{j.OrderString_Count * j.Pizza.Pizza_Price:0.#} руб." });
+                    }
+                }
+
+            }
+
+            return orderModels;
         }
 
         public bool CheckIfOrderCanBeCancelled(int order_Id)
@@ -156,12 +206,33 @@ namespace BLL
             return dataBase.OrderStrings.GetList().Select(i => new OrderStringModel(i)).Where(i => i.OrderString_Order == orderId).ToList();
         }
 
+        public void AcceptOrderWorker(int UserId, OrderModel Orders)
+        {
+            Order order = dataBase.Orders.GetItem(Orders.Order_Id);
+            User wk = dataBase.Users.GetItem(UserId);
+            order.User2 = wk;
+            order.Order_Worker = wk.User_Id;
+            Save();
+        }
+
+        public void ChangeToNextStatus(OrderModel Orders)
+        {
+            Order order = dataBase.Orders.GetItem(Orders.Order_Id);
+            order.Order_Status++;
+            Save();
+        }
+
         public bool CheckActiveOrder(int CurUser)
         {
             Order ord = dataBase.Orders.GetList().Where(i => i.Order_Client == CurUser).Where(i=>i.Order_Status<5).FirstOrDefault();
             if (ord == null)
                 return false;
             else return true;
+        }
+
+        public OrderModel GetActiveOrdersOfWorker(UserModel User)
+        {
+            return dataBase.Orders.GetList().Select(i => new OrderModel(i)).Where(i => i.Order_Worker == User.User_Id).Where(i => i.Order_Status < 3).FirstOrDefault();
         }
 
         public void DeleteBasket(int id)

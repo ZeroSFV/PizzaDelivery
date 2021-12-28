@@ -35,9 +35,13 @@ namespace BLL.Models
 
         public string ViewPrice { get; set; }
 
+        public UserModel Client { get; set; }
+
         public List<int> OrderStringIds  { get; set; }
        
         public List<int> UserWorkerIds { get; set; }
+
+        public ObservableCollection<OrderStringModel> OrderLines { get; set; }
 
         public OrderModel() { }
 
@@ -52,7 +56,10 @@ namespace BLL.Models
             Order_Client = o.Order_Client;
             Order_Courier = o.Order_Courier;
             Order_Worker = o.Order_Worker;
+            OrderLines = new ObservableCollection<OrderStringModel>();
+            Client = new UserModel(o.User);
             OrderStringIds = o.OrderString.Select(i => i.OrderString_Id).ToList();
+            
             Status = new StatusModel(o.Status);
             ViewPrice = $"{o.Order_Price:0.#} руб.";
 

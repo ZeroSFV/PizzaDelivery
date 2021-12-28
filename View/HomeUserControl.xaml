@@ -33,6 +33,10 @@
                 </Grid>
 
                 <Grid Grid.Row="0" Grid.Column="0" >
+                    <Label Content="&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Добро пожаловать в наше приложение по доставке пиццы.&#xD;&#xA;                                                                                                    Вы зашли в наше приложение как &quot;Курьер&quot;"  Foreground="Red" HorizontalAlignment="Left" Margin="250,361,0,0" VerticalAlignment="Top" RenderTransformOrigin="-6.411,-1.331" FontSize="16" FontWeight="Bold" Visibility="{Binding WentInCourier, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                </Grid>
+
+                <Grid Grid.Row="0" Grid.Column="0" >
                     <Label Content="&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Добро пожаловать в наше приложение по доставке пиццы.&#xD;&#xA;                                                                                            Вы зашли в наше приложение как &quot;Работник ресторана&quot;"  Foreground="Red" HorizontalAlignment="Left" Margin="250,361,0,0" VerticalAlignment="Top" RenderTransformOrigin="-6.411,-1.331" FontSize="16" FontWeight="Bold" Visibility="{Binding  WentInWorker, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 </Grid>
 
