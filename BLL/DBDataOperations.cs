@@ -181,6 +181,30 @@ namespace BLL
             return orderModels;
         }
 
+        public List<OrderModel> GetAcceptedOrdersOfCourier(int UserId)
+        {
+            var orders = dataBase.Orders.GetList();
+            var orderLines = dataBase.OrderStrings.GetList();
+            // User us = dataBase.Users.GetItem(UserId);
+
+            List<OrderModel> orderModels = orders.Select(i => new OrderModel(i)).Where(i => i.Order_Status == 4).Where(i => i.Order_Courier == UserId).ToList();
+
+            foreach (var i in orderModels)
+            {
+                foreach (var j in orderLines)
+                {
+                    if (j.OrderString_Order == i.Order_Id)
+                    {
+                        var prod = dataBase.Pizzas.GetItem(j.OrderString_Pizza);
+                        i.OrderLines.Add(new OrderStringModel { OrderString_Count = j.OrderString_Count, Pizza = new PizzaModel(j.Pizza), OrderString_Order = j.OrderString_Order, OrderString_Pizza = j.OrderString_Pizza, ViewCount = $"{j.OrderString_Count:0.#} шт.", ViewPrice = $"{j.OrderString_Count * j.Pizza.Pizza_Price:0.#} руб." });
+                    }
+                }
+
+            }
+
+            return orderModels;
+        }
+
         public bool CheckIfOrderCanBeCancelled(int order_Id)
         {
             Order curOrder = dataBase.Orders.GetItem(order_Id);
@@ -212,6 +236,15 @@ namespace BLL
             User wk = dataBase.Users.GetItem(UserId);
             order.User2 = wk;
             order.Order_Worker = wk.User_Id;
+            Save();
+        }
+
+        public void AcceptOrderCourier(int UserId, OrderModel Orders)
+        {
+            Order order = dataBase.Orders.GetItem(Orders.Order_Id);
+            User wk = dataBase.Users.GetItem(UserId);
+            order.User1 = wk;
+            order.Order_Courier = wk.User_Id;
             Save();
         }
 
@@ -258,6 +291,11 @@ namespace BLL
             Save();
         }
 
+        public List<OrderModel> GetActiveOrdersOfCourier(int UserId)
+        {
+            return dataBase.Orders.GetList().Select(i => new OrderModel(i)).Where(i => i.Order_Courier == UserId).Where(i => i.Order_Status == 4).ToList();
+        }
+
         public void CreateBasket(int logUser, PizzaModel OpenPizza)
         {
             User us = dataBase.Users.GetItem(logUser);
@@ -275,6 +313,29 @@ namespace BLL
         public UserModel User(int id)
         {
             return new UserModel(dataBase.Users.GetItem(id));
+        }
+
+        public List<OrderModel> GetAllComplectOrders()
+        {
+            var orders = dataBase.Orders.GetList();
+            var orderLines = dataBase.OrderStrings.GetList();
+
+            List<OrderModel> orderModels = orders.Select(i => new OrderModel(i)).Where(i => i.Order_Status == 3).Where(i => i.Order_Courier == null).ToList();
+
+            foreach (var i in orderModels)
+            {
+                foreach (var j in orderLines)
+                {
+                    if (j.OrderString_Order == i.Order_Id)
+                    {
+                        var prod = dataBase.Pizzas.GetItem(j.OrderString_Pizza);
+                        i.OrderLines.Add(new OrderStringModel { OrderString_Count = j.OrderString_Count, Pizza = new PizzaModel(j.Pizza), OrderString_Order = j.OrderString_Order, OrderString_Pizza = j.OrderString_Pizza, ViewCount = $"{j.OrderString_Count:0.#} шт.", ViewPrice = $"{j.OrderString_Count * j.Pizza.Pizza_Price:0.#} руб." });
+                    }
+                }
+
+            }
+
+            return orderModels;
         }
 
         public bool Save()

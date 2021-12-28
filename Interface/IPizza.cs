@@ -17,5 +17,8 @@ namespace PizzaDelivery.Interface
         int GetUser();
 
         void ClickNextStatus();
+
+        void ClickAcceptCourier();
+        void ClickNextStatusCourier();
     }
 }

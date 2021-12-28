@@ -25,7 +25,7 @@ namespace PizzaDelivery
             WentInWorker = wentInWorker;
             WentInAdmin = wentInAdmin;
             WentInCourier = wentInCourier;
-            if (WentInClient == true || wentInAdmin == true || wentInWorker == true|| wentInWorker==true)
+            if (WentInClient == true || WentInAdmin == true || WentInWorker == true|| WentInCourier==true)
                 WentIn = true;
         }
 

@@ -45,6 +45,14 @@
         <DataTemplate DataType="{x:Type vm:WorkerAcceptedOrdersViewModel}">
             <view:WorkerAcceptedOrdersUserControl/>
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:CourierAcceptsViewModel}">
+            <view:CourierAcceptUserControl/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:CourierAcceptedOrdersViewModel}">
+            <view:CourierAcceptedOrdersUserControl/>
+        </DataTemplate>
     </Window.Resources>
 
     <Window.Triggers>
@@ -72,7 +80,13 @@
 
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtAcceptedOrder">
         </EventTrigger>
-        
+
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtOpenAcceptsCourier">
+        </EventTrigger>
+
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtAcceptedOrderCourier">
+        </EventTrigger>
+
     </Window.Triggers>
 
     <Grid x:Name="mainGrid" Margin="0,0,0,0" Grid.ColumnSpan="2">
@@ -156,9 +170,33 @@
                 </Button>
             </Grid>
 
+            <Grid Grid.Column="2">
+                <Button x:Name="ButtOpenAcceptsCourier" Grid.Row="1" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding OpenAcceptsCourier}"
+                         Visibility="{Binding CourierHaveOrders, Converter={StaticResource  InverseBoolToVisConverter}}" Height="Auto" HorizontalContentAlignment="Left" Background="White" BorderBrush="Transparent" Foreground="#000" Grid.RowSpan="2" Margin="20,7,12,7" >
+                    <materialDesign:PackIcon   Kind="Event" Foreground="#DD000000" Height="45" Width="45" Margin="2 0 0 0"/>
+                    <Button.ToolTip>
+                        <ToolTip Background="#60FFFFFF" Foreground="White" HasDropShadow="False"
+                Placement="Relative" HorizontalOffset="15" VerticalOffset="10">
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+            </Grid>
+
             <Grid Grid.Column="4">
                 <Button x:Name="ButtAcceptedOrder" Grid.Row="1" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding OpenAcceptedOrders}"
                         Visibility="{Binding WorkerHaveOrders1, Converter={StaticResource BooleanToVisibilityConverter}}" Height="Auto" HorizontalContentAlignment="Left" Background="White" BorderBrush="Transparent" Foreground="#000" Grid.RowSpan="2" Margin="20,7,12,7" >
+                    <materialDesign:PackIcon   Kind="Done" Foreground="#DD000000" Height="45" Width="45" Margin="2 0 0 0"/>
+                    <Button.ToolTip>
+                        <ToolTip Background="#60FFFFFF" Foreground="White" HasDropShadow="False"
+                Placement="Relative" HorizontalOffset="15" VerticalOffset="10">
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+            </Grid>
+
+            <Grid Grid.Column="4">
+                <Button x:Name="ButtAcceptedOrderCourier" Grid.Row="1" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding OpenAcceptedOrdersCourier}"
+                        Visibility="{Binding CourierHaveOrders1, Converter={StaticResource BooleanToVisibilityConverter}}" Height="Auto" HorizontalContentAlignment="Left" Background="White" BorderBrush="Transparent" Foreground="#000" Grid.RowSpan="2" Margin="20,7,12,7" >
                     <materialDesign:PackIcon   Kind="Done" Foreground="#DD000000" Height="45" Width="45" Margin="2 0 0 0"/>
                     <Button.ToolTip>
                         <ToolTip Background="#60FFFFFF" Foreground="White" HasDropShadow="False"

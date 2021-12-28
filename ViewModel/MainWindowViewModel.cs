@@ -25,7 +25,9 @@ namespace PizzaDelivery.ViewModel
             TypePage = new HomeViewModel(dbCrud, WentInUser, WentInWorker, WentInAdmin, WentInCourier);
             WorkerHaveOrders = true;
             WorkerHaveOrders1 = false;
-
+            CourierHaveOrders = true;
+            CourierHaveOrders1 = false;
+            OrderCourier = new ObservableCollection<OrderModel>();
 
         }
         public CatalogViewModel CatalogVM { get; set; }
@@ -48,6 +50,13 @@ namespace PizzaDelivery.ViewModel
             TypePage = new WorkerAcceptsViewModel(_crud, this, Userlog.User_Id);
         }
 
+        public void ClickNextStatusCourier()
+        {
+            CheckCourierForOrders(Userlog);
+            if (OrderCourier.Count == 0)
+                TypePage = new CourierAcceptsViewModel(_crud, this, Userlog.User_Id);
+        }
+
         public void ClickOrder()
         {
             TypePage = new ActiveOrderViewModel(_crud, this, Userlog.User_Id);
@@ -57,7 +66,15 @@ namespace PizzaDelivery.ViewModel
         {
             TypePage = new CatalogViewModel(_crud, this);
         }
-        
+
+        public void ClickAcceptCourier()
+        {
+            CheckCourierForOrders(Userlog);
+            if (OrderCourier.Count == 2)
+                TypePage = new CourierAcceptedOrdersViewModel(_crud, this, Userlog.User_Id);
+        }
+
+
         private bool wentIn;
         public bool WentIn
         {
@@ -73,6 +90,20 @@ namespace PizzaDelivery.ViewModel
             {
                 orders = value;
                 NotifyPropertyChanged("Orders");
+            }
+        }
+
+        private ObservableCollection<OrderModel> _OrderCourier;
+        public ObservableCollection<OrderModel> OrderCourier
+        {
+            get
+            {
+                return _OrderCourier;
+            }
+            set
+            {
+                _OrderCourier = value;
+                NotifyPropertyChanged("OrderCourier");
             }
         }
 
@@ -96,6 +127,21 @@ namespace PizzaDelivery.ViewModel
             get { return workerHaveOrders1; }
             set { workerHaveOrders1 = value; ; NotifyPropertyChanged("WorkerHaveOrders1"); }
         }
+
+        private bool courierHaveOrders;
+        public bool CourierHaveOrders
+        {
+            get { return courierHaveOrders; }
+            set { courierHaveOrders = value; ; NotifyPropertyChanged("CourierHaveOrders"); }
+        }
+
+        private bool courierHaveOrders1;
+        public bool CourierHaveOrders1
+        {
+            get { return courierHaveOrders1; }
+            set { courierHaveOrders1 = value; ; NotifyPropertyChanged("CourierHaveOrders1"); }
+        }
+
 
         private bool wentInCourier;
         public bool WentInCourier
@@ -212,7 +258,37 @@ namespace PizzaDelivery.ViewModel
             }
         }
 
-        
+        private RelayCommand openAcceptsCourier;
+        public RelayCommand OpenAcceptsCourier
+        {
+            get
+            {
+                return openAcceptsCourier ??
+                    (openAcceptsCourier = new RelayCommand(obj =>
+                    {
+                        TypePage = new CourierAcceptsViewModel(_crud, this, Userlog.User_Id);
+
+                    }
+                ));
+            }
+        }
+
+        private RelayCommand openAcceptedOrdersCourier;
+        public RelayCommand OpenAcceptedOrdersCourier
+        {
+            get
+            {
+                return openAcceptedOrdersCourier ??
+                    (openAcceptedOrdersCourier = new RelayCommand(obj =>
+                    {
+                        TypePage = new CourierAcceptedOrdersViewModel(_crud, this, Userlog.User_Id);
+
+                    }
+                ));
+            }
+        }
+
+
 
 
 
@@ -270,6 +346,28 @@ namespace PizzaDelivery.ViewModel
             }
         }
 
+        private void CheckCourierForOrders(UserModel User)
+        {
+            OrderCourier = new ObservableCollection<OrderModel>(_crud.GetActiveOrdersOfCourier(User.User_Id));
+            if (OrderCourier.Count==0)
+            {
+                CourierHaveOrders = false;
+                CourierHaveOrders1 = false;
+            }
+            else if (OrderCourier.Count == 1)
+            {
+                CourierHaveOrders = false;
+                CourierHaveOrders1 = true;
+            }
+            else if (OrderCourier.Count == 2)
+            {
+                CourierHaveOrders = true;
+                CourierHaveOrders1 = true;
+            }
+        }
+
+        
+
         private RelayCommand logIn;
         public RelayCommand LogIn
         {
@@ -295,7 +393,8 @@ namespace PizzaDelivery.ViewModel
                             }
                             if (Userlog.User_UserType == 3)
                             {
-                                wentInCourier = true;
+                                WentInCourier = true;
+                                CheckCourierForOrders(Userlog);
                             }
                             if (Userlog.User_UserType == 4)
                             {
@@ -325,6 +424,8 @@ namespace PizzaDelivery.ViewModel
                         WentInCourier = false;
                         WorkerHaveOrders = true;
                         WorkerHaveOrders1 = false;
+                        CourierHaveOrders = true;
+                        CourierHaveOrders1 = false;
                         Userlog = null;
                         TypePage = new HomeViewModel(_crud, WentInUser, wentInWorker, WentInAdmin, WentInCourier);
                     }
