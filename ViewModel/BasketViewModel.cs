@@ -20,10 +20,11 @@ namespace PizzaDelivery.ViewModel
 
         IDbCrud crud;
         IPizza ipizz;
+        IFileService file;
         int UserId;
-        public BasketViewModel(IDbCrud dbCrud, IPizza _ipizz, int userId)
+        public BasketViewModel(IDbCrud dbCrud, IPizza _ipizz, int userId, IFileService _file)
         {
-            
+            file = _file;
             ipizz = _ipizz;
             crud = dbCrud;
             UserId = userId;
@@ -36,14 +37,25 @@ namespace PizzaDelivery.ViewModel
 
         public void GetBaskets(int UsId)
         {
+            CheckPrice = 0;
             Baskets = new ObservableCollection<BasketModel>(crud.GetAllBasketsByUserId(UsId));
             if (Baskets.Count > 0)
+            {
+                for (int i = 0; i < Baskets.Count; i++)
+                {
+                    CheckPrice += Baskets[i].Basket_Price;
+                }
+                if (CheckPrice > 450)
+                    NotEmptyBasketPrice = true;
+                else NotEmptyBasketPrice = false;
                 NotEmptyBasket = true;
-            else NotEmptyBasket = false;
+            }
+            else
+            {
+                NotEmptyBasket = false;
+                NotEmptyBasketPrice = false;
+            }
             
-
-
-
 
         }
 
@@ -76,7 +88,10 @@ namespace PizzaDelivery.ViewModel
         {
             if (string.IsNullOrWhiteSpace(Adress) || string.IsNullOrWhiteSpace(Flat) || string.IsNullOrWhiteSpace(Entrance) || string.IsNullOrWhiteSpace(Floor))
             {
+                var notyfy = new ToastContentBuilder();
+                notyfy.AddText("Пожалуйста, заполните поля адреса.\n");
 
+                notyfy.Show();
             }
             else 
             {
@@ -85,9 +100,10 @@ namespace PizzaDelivery.ViewModel
                 if (result==true)
                 {
                     crud.MakeOrder(UserId, Baskets, Adress + ",кв: " + Flat + ",Под: " + Entrance + ",Этаж: " + Floor);
+                    file.PrintCheque(UserId);
                     ipizz.ClickOrder();
                     var notyfy = new ToastContentBuilder();
-                    notyfy.AddText("Ваш заказ был успешно создан. \n Переносим вас в окно активных заказов.\n Теперь в вашей корзине показан ваш активный заказ! \n");
+                    notyfy.AddText("Ваш заказ был успешно создан. \n Переносим вас в окно активных заказов.\n Теперь в вашей корзине показан ваш активный заказ! \n Ваш чек создан и помещён в каталог приложения\n");
 
                     notyfy.Show();
                     //GetBaskets(UserId);
@@ -100,6 +116,20 @@ namespace PizzaDelivery.ViewModel
         {
             get { return notEmptyBasket; }
             set { notEmptyBasket = value; ; OnPropertyChanged("NotEmptyBasket"); }
+        }
+
+        private bool notEmptyBasketPrice;
+        public bool NotEmptyBasketPrice
+        {
+            get { return notEmptyBasketPrice; }
+            set { notEmptyBasketPrice = value; ; OnPropertyChanged("NotEmptyBasketPrice"); }
+        }
+
+        private decimal checkPrice;
+        public decimal CheckPrice
+        {
+            get { return checkPrice; }
+            set { checkPrice = value; ; OnPropertyChanged("CheckPrice"); }
         }
 
         private ObservableCollection<BasketModel> baskets;

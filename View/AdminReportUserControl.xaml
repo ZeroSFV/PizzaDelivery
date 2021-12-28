@@ -1,0 +1,159 @@
+﻿<UserControl x:Class="PizzaDelivery.View.AdminReportUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PizzaDelivery.View"
+             mc:Ignorable="d" 
+              d:DesignHeight="820" d:DesignWidth="1425">
+    <Grid Background="Transparent">
+        <Grid.ColumnDefinitions>
+           
+            <ColumnDefinition Width="953*"></ColumnDefinition>
+            <ColumnDefinition Width="400"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <TextBlock Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Отчёты по заказам" FontWeight="DemiBold" Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="Black" FontSize="18" TextWrapping="Wrap" />
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Фильтр по статусу заказа" Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="Black" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,0" Width="200"/>
+
+                <ComboBox SelectedIndex="{Binding SelectedStatus}" Grid.Row="0"  ItemsSource="{Binding Statuses}" FontSize="14" materialDesign:HintAssist.Hint="Статус заказа" BorderBrush="#FF160025" Foreground="Black" BorderThickness="0,0,0,2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Status_Name}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                
+
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Выберите период" Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="Black" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,0" Width="200"/>
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="2*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Конечная дата" Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="Gray" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,0" Width="200"/>
+                        <DatePicker DisplayDateEnd="01.01.2023" DisplayDateStart="01.01.2017" SelectedDate="{Binding DateEnd}" Text="Конечная дата" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" materialDesign:CalendarAssist.HeaderBackground="#FF160025" BorderBrush="#FF160025" BorderThickness="0,0,0,2"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="2*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Начальная дата" Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="Gray" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,0" Width="200"/>
+                        <DatePicker DisplayDateEnd="01.01.2023" DisplayDateStart="01.01.2017" SelectedDate="{Binding DateStart}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" materialDesign:CalendarAssist.HeaderBackground="#FF160025" BorderBrush="#FF160025" BorderThickness="0,0,0,2"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Command="{Binding Sort}"  VerticalAlignment="Center" HorizontalAlignment="Center" Content="Показать" Foreground="White" BorderBrush="Red" Background="Red"/>
+                <materialDesign:PackIcon ToolTip="Отчёт в PDF" Kind="FileDocument" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="30" Height="30" Cursor="Hand" Foreground="#FF160025">
+                    <materialDesign:PackIcon.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding PDF}"/>
+                    </materialDesign:PackIcon.InputBindings>
+                </materialDesign:PackIcon>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="0" Visibility="{Binding  Vision, Converter={StaticResource InverseBoolToVisConverter}}">
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                <TextBlock  FontSize="20" Text="Дата заказа" Background="Transparent" HorizontalAlignment="Center" Foreground="Black"  Margin="60 -40 0 10"  />
+
+            </StackPanel>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                <TextBlock Grid.Column="0" FontSize="20" Text="Адрес" HorizontalAlignment="Center" Foreground="Black" Background="Transparent" Margin="350 -40 0 10"  />
+
+            </StackPanel>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                <TextBlock Grid.Column="0" FontSize="20" Text="Стоимость" HorizontalAlignment="Center" Foreground="Black" Background="Transparent" Margin="600 -40 0 10"  />
+
+            </StackPanel>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                <TextBlock Grid.Column="0" FontSize="20" Text="Статус заказа" HorizontalAlignment="Center" Foreground="Black" Background="Transparent" Margin="750 -40 0 10"  />
+
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0" Background="Transparent" Margin="0,0,0.2,0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="56*"/>
+                <ColumnDefinition Width="969*"/>
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer  Background="Transparent" Margin="0,0,-0.2,0" VerticalScrollBarVisibility="Auto" Visibility="{Binding  Vision, Converter={StaticResource InverseBoolToVisConverter}}" Grid.ColumnSpan="2">
+                <ListView Name="listView" Foreground="Black"  Background="Transparent"  ItemsSource="{Binding Orders}" >
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" MaxWidth="{Binding ElementName=listView, Path=ActualWidth}"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Background="Transparent"  Width="1200" Height="50">
+                                <StackPanel.Effect>
+                                    <DropShadowEffect ShadowDepth="0"/>
+                                </StackPanel.Effect>
+                                <Grid Height="50" Width="1050">
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                        <TextBlock Grid.Column="0" FontSize="20" Text="{Binding Path=Order_CreationTime}" HorizontalAlignment="Center" Foreground="Black" Background="Transparent" Margin="-70 -40 0 10"  />
+
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                        <TextBlock Grid.Column="0" FontSize="20" Text="{Binding Path=Order_Address}" HorizontalAlignment="Left" Foreground="Black" Background="Transparent" Margin="-870 -41 0 10"  />
+
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                        <TextBlock Grid.Column="0" FontSize="20" Text="{Binding Path=ViewPrice}" HorizontalAlignment="Left" Foreground="Black" Background="Transparent" Margin="-520 -40 0 10"  />
+
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                        <TextBlock Grid.Column="0" FontSize="20" Text="{Binding Path=Status.Status_Name}" HorizontalAlignment="Left" Foreground="Black" Background="Transparent" Margin="-370 -40 0 10"  />
+
+                                    </StackPanel>
+
+
+
+
+                                </Grid>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </ScrollViewer>
+            <TextBlock Visibility="{Binding  Vision, Converter={StaticResource BooleanToVisibilityConverter}}" Text="Пока ничего нет" Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="Gray" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Margin="387.891,344,443.8,344"/>
+        </Grid>
+    </Grid>
+</UserControl>

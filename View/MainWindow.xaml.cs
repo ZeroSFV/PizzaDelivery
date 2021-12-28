@@ -24,10 +24,10 @@ namespace PizzaDelivery
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(IDbCrud crudService)
+        public MainWindow(IDbCrud crudService, IFileService file)
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel(crudService);
+            DataContext = new MainWindowViewModel(crudService, file);
         }
 
         private void ButtLogout_Click(object sender, RoutedEventArgs e)

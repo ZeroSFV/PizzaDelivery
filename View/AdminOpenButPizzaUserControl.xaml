@@ -1,12 +1,12 @@
-﻿<UserControl x:Class="PizzaDelivery.View.OpenButPizza"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:local="clr-namespace:PizzaDelivery.View"
-      mc:Ignorable="d" 
-       Height="820" Width="1760">
+﻿<UserControl x:Class="PizzaDelivery.View.AdminOpenButPizzaUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PizzaDelivery.View"
+             mc:Ignorable="d" 
+              Height="820" Width="1760">
 
 
 
@@ -24,7 +24,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
 
-                    <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50 50 0 0" Background="#FF160025" Command="{Binding EndMakeOrder}">
+                    <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50 50 0 0" Background="#FF160025" Command="{Binding EndChangePizza}">
                         <materialDesign:PackIcon Kind="ArrowBack" Width="24" Height="24" Foreground="White" HorizontalAlignment="Center"/>
                     </Button>
                     <Image VerticalAlignment="Top" Margin="0 100 0 0" Source="{Binding OpenPizza.Pizza_Photo}" Width="400" Height="400">
@@ -63,18 +63,16 @@
 
 
                                 </StackPanel>
-                                <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" Margin="0,0,136,0">
+                                
 
-                                    <TextBlock  FontSize="30" Foreground="Black" Text="{Binding Price}" Margin="0,16, 0, 0" FontWeight="Bold" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
+                                <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" Margin="0,0,642,0">
+
+                                    <TextBox  FontSize="30" Foreground="Black" Text="{Binding Pricer}" Margin="0,10, 0, 0" FontWeight="Bold" FontFamily="component/#CQ Mono [RUS by Daymarius]"/>
 
 
                                 </StackPanel>
 
-
-                                
-
-
-
+                                <Button x:Name="ButtonChangePrice" Grid.Column="0"   HorizontalAlignment="Right"  Command="{Binding ChangePrice}" Background="Red" Foreground="White" FontSize="35" Content="Изменить"  Margin="0,0,352,0" Height="Auto" Width="236"  Grid.Row="1"/>
 
                             </Grid>
 
@@ -84,9 +82,11 @@
 
 
                             </StackPanel>
-                            <Button x:Name="ButtonAddBasket" Grid.Row="3" Click="ButtonAddBasket_Click" HorizontalAlignment="Right"  Command="{Binding AddPizzaToBasket}" Background="Red" Foreground="White" FontSize="45" Content="В корзину"  Margin="0,183,32,30" Height="Auto" Width="298" Visibility="{Binding ButAddVis, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Button x:Name="ButtonNoVis" Grid.Row="3" HorizontalAlignment="Right"  Command="{Binding NoVis}" Background="Red" Foreground="White" FontSize="45" Content="Не доступна"  Margin="0,183,32,30" Height="Auto" Width="298" Visibility="{Binding Vision, Converter={StaticResource BooleanToVisibilityConverter}}">
                             </Button>
-                            <Label Content="Вы не можете добавить пиццу в корзину, пока у вас есть активный заказ"  Foreground="Red" HorizontalAlignment="Left" Margin="263,213,0,0" VerticalAlignment="Top" RenderTransformOrigin="-6.411,-1.331" FontSize="16" FontWeight="Bold" Visibility="{Binding ButAddVis, Converter={StaticResource InverseBoolToVisConverter}}" Height="72" Grid.Row="3" Width="601"/>
+                            <Button x:Name="ButtonVis" Grid.Row="3"  HorizontalAlignment="Right"  Command="{Binding Vis}" Background="Red" Foreground="White" FontSize="45" Content="Доступна"  Margin="0,183,356,30" Height="Auto" Width="298" Visibility="{Binding Vision, Converter={StaticResource InverseBoolToVisConverter}}">
+                            </Button>
+                            
 
                         </Grid>
 

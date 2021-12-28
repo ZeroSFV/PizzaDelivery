@@ -20,5 +20,9 @@ namespace PizzaDelivery.Interface
 
         void ClickAcceptCourier();
         void ClickNextStatusCourier();
+
+        void ClickPizzaAdmin(PizzaModel pz);
+
+        void ClickAdminCatalog();
     }
 }

@@ -129,15 +129,15 @@
                         </StackPanel>
                     </Grid>
 
-                    <Button  Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,34,28" Content="Перейти на сайт оплаты" Foreground="Black" BorderBrush="#AAEA00" Background="#FFB9FF00" Command="{Binding AddOrder}" Visibility="{Binding NotEmptyBasket, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-
+                    <Button  Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,34,28" Content="Перейти на сайт оплаты" Foreground="Black" BorderBrush="#AAEA00" Background="#FFB9FF00" Command="{Binding AddOrder}" Visibility="{Binding NotEmptyBasketPrice, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <Label Content="Вы не можете провести заказ, пока сумма заказа не будет больше либо равна 450 руб."  Foreground="Red" HorizontalAlignment="Left" Margin="76,42,0,-12" VerticalAlignment="Top" RenderTransformOrigin="-6.411,-1.331" FontSize="16" FontWeight="Bold" Visibility="{Binding NotEmptyBasketPrice, Converter={StaticResource InverseBoolToVisConverter}}" Height="72" Grid.Row="2" Width="695" Grid.ColumnSpan="2" Grid.Column="1"/>
                 </Grid>
                 <TextBlock Text="Ваша корзина" FontWeight="DemiBold" Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="Black" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Height="32"/>
 
 
 
-                
-                    <Grid Grid.Row="1" Background="#FFF3F3F3" Margin="0,0,0.2,0">
+
+                <Grid Grid.Row="1" Background="#FFF3F3F3" Margin="0,0,0.2,0">
                     <ScrollViewer  Background="#FFF3F3F3" Margin="0" VerticalScrollBarVisibility="Auto">
                         <ListView Name="listView" Foreground="Black"  Background="White"  ItemsSource="{Binding Baskets}" Visibility="{Binding NotEmptyBasket, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <ListView.ItemsPanel>
@@ -184,10 +184,10 @@
                         </ListView>
                     </ScrollViewer>
                     <Image Height="300" Width="600" Source="/Assets/EmptyBasket.png" Visibility="{Binding NotEmptyBasket, Converter={StaticResource InverseBoolToVisConverter}}" Margin="254,10,245,91"/>
-                     <Button  Command="{Binding EndMakeOrder}"  VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,-15,28" Content="Перейти в каталог" Foreground="Black" BorderBrush="#AAEA00" Background="#FFB9FF00" Visibility="{Binding NotEmptyBasket, Converter={StaticResource InverseBoolToVisConverter}}"/>
-                    
+                    <Button  Command="{Binding EndMakeOrder}"  VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,-15,28" Content="Перейти в каталог" Foreground="Black" BorderBrush="#AAEA00" Background="#FFB9FF00" Visibility="{Binding NotEmptyBasket, Converter={StaticResource InverseBoolToVisConverter}}"/>
+
                 </Grid>
-               
+
                 <Rectangle Grid.Row="1" HorizontalAlignment="Stretch" Fill="Transparent" Height="2" VerticalAlignment="Top" Margin="0,0,0.2,0"/>
                 <Rectangle Grid.Row="1" HorizontalAlignment="Stretch" Fill="Transparent" Height="2" VerticalAlignment="Bottom" Margin="0,0,0.2,0"/>
 

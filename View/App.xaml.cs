@@ -22,11 +22,10 @@ namespace PizzaDelivery
             var kernel = new StandardKernel(new NinjectRegistrations(), new ServiceModule());
 
               IDbCrud crudServ = kernel.Get<IDbCrud>();
-          //  ICategoryService catServ = kernel.Get<ICategoryService>();
-           // ICatalogService prodCatServ = kernel.Get<ICatalogService>();
-           // IOrderService ordServ = kernel.Get<IOrderService>();
+              IFileService fileServ = kernel.Get<IFileService>();
+            
 
-            MainWindow mainWindow = new MainWindow(crudServ);
+            MainWindow mainWindow = new MainWindow(crudServ, fileServ);
 
             mainWindow.Show();
         }

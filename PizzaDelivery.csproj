@@ -59,6 +59,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModel\ActiveOrderViewModel.cs" />
+    <Compile Include="ViewModel\AdminCatalogViewModel.cs" />
+    <Compile Include="ViewModel\AdminOpenButPizzaViewModel.cs" />
+    <Compile Include="ViewModel\AdminReportViewModel.cs" />
     <Compile Include="ViewModel\BasketViewModel.cs" />
     <Compile Include="ViewModel\CourierAcceptedOrdersViewModel.cs" />
     <Compile Include="ViewModel\CourierAcceptsViewModel.cs" />
@@ -73,6 +76,18 @@
     <Compile Include="ViewModel\WorkerAcceptsViewModel.cs" />
     <Compile Include="View\ActiveOrderUserControl.xaml.cs">
       <DependentUpon>ActiveOrderUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminCatalogUserControl.xaml.cs">
+      <DependentUpon>AdminCatalogUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminOpenButPizzaUserControl.xaml.cs">
+      <DependentUpon>AdminOpenButPizzaUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminReportUserControl.xaml.cs">
+      <DependentUpon>AdminReportUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminUsercUserControl.xaml.cs">
+      <DependentUpon>AdminUsercUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\BasketUserControl.xaml.cs">
       <DependentUpon>BasketUserControl.xaml</DependentUpon>
@@ -111,6 +126,22 @@
       <DependentUpon>WorkerAcceptsUserControl.xaml</DependentUpon>
     </Compile>
     <Page Include="View\ActiveOrderUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminCatalogUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminOpenButPizzaUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminReportUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminUsercUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

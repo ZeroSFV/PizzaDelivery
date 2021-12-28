@@ -17,10 +17,12 @@ namespace PizzaDelivery.ViewModel
     public class MainWindowViewModel :INotifyPropertyChanged, IPizza
     {
         private IDbCrud _crud;
+        private IFileService files;
 
-        public MainWindowViewModel(IDbCrud dbCrud)
+        public MainWindowViewModel(IDbCrud dbCrud, IFileService _files)
         {
             _crud = dbCrud;
+            files = _files;
             CatalogVM = new CatalogViewModel(dbCrud, this);
             TypePage = new HomeViewModel(dbCrud, WentInUser, WentInWorker, WentInAdmin, WentInCourier);
             WorkerHaveOrders = true;
@@ -36,6 +38,12 @@ namespace PizzaDelivery.ViewModel
         {
             TypePage = new OpenButPizzaViewModel(_crud, this, pm);
         }
+
+        public void ClickPizzaAdmin(PizzaModel pz)
+        {
+            TypePage = new AdminOpenButPizzaViewModel(_crud, this, pz);
+        }
+
 
         public void ClickAccept()
         {
@@ -65,6 +73,11 @@ namespace PizzaDelivery.ViewModel
         public void ClickCatalog()
         {
             TypePage = new CatalogViewModel(_crud, this);
+        }
+
+        public void ClickAdminCatalog()
+        {
+            TypePage = new AdminCatalogViewModel(_crud, this);
         }
 
         public void ClickAcceptCourier()
@@ -288,8 +301,33 @@ namespace PizzaDelivery.ViewModel
             }
         }
 
+        private RelayCommand openCatalogAdmin;
+        public RelayCommand OpenCatalogAdmin
+        {
+            get
+            {
+                return openCatalogAdmin ??
+                    (openCatalogAdmin = new RelayCommand(obj =>
+                    {
+                        TypePage = new AdminCatalogViewModel(_crud, this);
+                    }
+                ));
+            }
+        }
 
-
+        private RelayCommand openAdminReport;
+        public RelayCommand OpenAdminReport
+        {
+            get
+            {
+                return openAdminReport ??
+                    (openAdminReport = new RelayCommand(obj =>
+                    {
+                         TypePage = new AdminReportViewModel(_crud, this, Userlog.User_Id,files);
+                    }
+                ));
+            }
+        }
 
 
 
@@ -312,7 +350,7 @@ namespace PizzaDelivery.ViewModel
         {
             bool Orders = _crud.CheckActiveOrder(CurUser.User_Id);
             if (Orders == false)
-                TypePage = new BasketViewModel(_crud, this, Userlog.User_Id);
+                TypePage = new BasketViewModel(_crud, this, Userlog.User_Id, files);
             else TypePage = new ActiveOrderViewModel(_crud, this, Userlog.User_Id);
         }
         

@@ -87,8 +87,7 @@ namespace BLL
             {
                 order.Order_Price += Basks[i].Basket_Price;
             }
-            if (order.Order_Price < 450)
-                order.Order_Price = 450;
+           
             order.Order_PhoneNumber = us.User_PhoneNumer;
             order.Order_Status = 1;
             order.Status = dataBase.Statuses.GetItem(order.Order_Status);
@@ -181,6 +180,11 @@ namespace BLL
             return orderModels;
         }
 
+        public List<PizzaModel> GetAllPizzasBySizeDescriptionAdmin(int size, string description)
+        {
+            return dataBase.Pizzas.GetList().Select(i => new PizzaModel(i)).Where(i => i.Pizza_Size == size).Where(i => i.Pizza_Description.Contains(description) == true).ToList();
+        }
+
         public List<OrderModel> GetAcceptedOrdersOfCourier(int UserId)
         {
             var orders = dataBase.Orders.GetList();
@@ -203,6 +207,14 @@ namespace BLL
             }
 
             return orderModels;
+        }
+
+        public void ChangePizza(PizzaModel OpenPizza, bool Vision, decimal Pricer)
+        {
+            Pizza p = dataBase.Pizzas.GetItem(OpenPizza.Pizza_id);
+            p.Pizza_Prescence = Vision;
+            p.Pizza_Price = Pricer;
+            Save();
         }
 
         public bool CheckIfOrderCanBeCancelled(int order_Id)
@@ -280,6 +292,35 @@ namespace BLL
         public List<SizeModel> GetAllSizes()
         {
             return dataBase.Sizes.GetList().Select(i => new SizeModel(i)).ToList();
+        }
+
+        public List<StatusModel> GetAllStatuses()
+        {
+            return dataBase.Statuses.GetList().Select(i => new StatusModel(i)).ToList();
+        }
+
+        public List<OrderModel> GetOrdersByStatusAnddAte(int SelectedStatus, DateTime DateStart, DateTime DateEnd)
+        {
+            var orders = dataBase.Orders.GetList();
+            var orderLines = dataBase.OrderStrings.GetList();
+
+            List<OrderModel> orderModels = orders.Where(i => DateStart <= i.Order_CreationTime && DateEnd >= i.Order_CreationTime && ((SelectedStatus == -1 && (i.Order_Status == 1 || i.Order_Status == 2 || i.Order_Status == 3 || i.Order_Status == 4 || i.Order_Status == 5 || i.Order_Status == 6)) | SelectedStatus == 0 | SelectedStatus == i.Order_Status)).Select(i => new OrderModel { OrderLines = new ObservableCollection<OrderStringModel>(), Order_Id = i.Order_Id, Order_CreationTime = (DateTime)i.Order_CreationTime, Order_Status = i.Order_Status,  Order_Price = i.Order_Price, Order_Address = i.Order_Address,Order_PhoneNumber =i.Order_PhoneNumber, Status = new StatusModel(i.Status), ViewPrice = $"{i.Order_Price:0.#} руб."}).ToList();
+
+            foreach (var i in orderModels)
+            {
+                foreach (var j in orderLines)
+                {
+                    if (j.OrderString_Order == i.Order_Id)
+                    {
+                        var prod = dataBase.Pizzas.GetItem(j.OrderString_Pizza);
+                        i.OrderLines.Add(new OrderStringModel { OrderString_Count = j.OrderString_Count, Pizza = new PizzaModel(j.Pizza), OrderString_Order = j.OrderString_Order, OrderString_Pizza = j.OrderString_Pizza, ViewCount = $"{j.OrderString_Count:0.#} шт.", ViewPrice = $"{j.OrderString_Count * j.Pizza.Pizza_Price:0.#} руб." });
+                    }
+                }
+                //i.OrderStatus = dataBase.OrderStatuses.GetItem((int)i.Order_Status_Id).Name;
+               // i.PickPoint = dataBase.PickPoints.GetItem((int)i.Pick_Point_Id).Name;
+            }
+
+            return orderModels;
         }
 
         public void UpdateBasket(BasketModel basket)

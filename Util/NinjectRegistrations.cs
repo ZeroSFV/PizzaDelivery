@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Ninject.Modules;
 using BLL;
 using BLL.Interfaces;
+using BLL.Services;
 
 namespace View.Util
 {
@@ -14,9 +15,10 @@ namespace View.Util
         public override void Load()
         {
             Bind<IDbCrud>().To<DBDataOperations>();
-           // Bind<ICategoryService>().To<CategoryService>();
-           // Bind<ICatalogService>().To<ProductCatalogService>();
-           // Bind<IOrderService>().To<OrderService>();
+            Bind<IFileService>().To<FileService>();
+            // Bind<ICategoryService>().To<CategoryService>();
+            // Bind<ICatalogService>().To<ProductCatalogService>();
+            // Bind<IOrderService>().To<OrderService>();
         }
     }
 }

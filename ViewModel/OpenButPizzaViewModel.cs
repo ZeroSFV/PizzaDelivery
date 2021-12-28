@@ -22,6 +22,7 @@ namespace PizzaDelivery.ViewModel
         public OpenButPizzaViewModel(IDbCrud _crud, IPizza _ipizz, PizzaModel pz)
         {
             OpenPizza = pz;
+            
             crud = _crud;
             ipizz = _ipizz;
             Price = $"Стоимость: {OpenPizza.Pizza_Price:0.#} руб.";
@@ -87,6 +88,9 @@ namespace PizzaDelivery.ViewModel
         {
             ipizz.ClickCatalog();
         }
+
+     
+
         public string Price
         {
             get

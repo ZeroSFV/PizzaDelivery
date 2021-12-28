@@ -59,5 +59,13 @@ namespace BLL.Interfaces
 
         List<OrderModel> GetActiveOrdersOfCourier(int UserId);
 
+        void ChangePizza(PizzaModel OpenPizza, bool Vision, decimal Pricer);
+
+        List<PizzaModel> GetAllPizzasBySizeDescriptionAdmin(int size, string description);
+
+        List<StatusModel> GetAllStatuses();
+
+        List<OrderModel> GetOrdersByStatusAnddAte(int SelectedStatus, DateTime DateStart, DateTime DateEnd);
+
     }
 }
